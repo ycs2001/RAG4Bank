@@ -1,0 +1,430 @@
+2025-07-22 14:38:02,990 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 14:38:02,990 - __main__ - INFO - 📋 可用的文档ID:
+2025-07-22 14:38:02,990 - __main__ - INFO -   • report_1104_2024: 银行业监管统计报表制度2024版 (状态: pending)
+2025-07-22 14:38:02,990 - __main__ - INFO -   • report_1104_2022: 银行业监管统计报表制度2022版 (状态: pending)
+2025-07-22 14:38:02,990 - __main__ - INFO -   • pboc_statistics: 人民银行金融统计制度汇编 (状态: pending)
+2025-07-22 14:38:02,990 - __main__ - INFO -   • east_data_structure: EAST系统数据结构说明 (状态: pending)
+2025-07-22 14:38:27,535 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 14:38:27,535 - __main__ - INFO - 🤖 初始化LLM...
+2025-07-22 14:38:27,535 - QwenLLM - INFO - ✅ Qwen LLM初始化完成: qwen-turbo
+2025-07-22 14:38:27,535 - __main__ - INFO - 📄 初始化文档预处理器...
+2025-07-22 14:38:27,538 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 14:38:27,615 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/isalive HTTP/11" 200 4
+2025-07-22 14:38:27,615 - DocumentPreprocessor - INFO - ✅ GROBID服务连接成功: http://localhost:8070
+2025-07-22 14:38:27,616 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 14:38:27,627 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/version HTTP/11" 200 5
+2025-07-22 14:38:27,627 - DocumentPreprocessor - INFO - 📋 GROBID版本: 0.8.0
+2025-07-22 14:38:27,627 - DocumentPreprocessor - INFO - ✅ 依赖检查完成
+2025-07-22 14:38:27,627 - DocumentPreprocessor - INFO - ✅ 文档预处理器已启用 (GROBID Docker + LLM)
+2025-07-22 14:38:27,627 - __main__ - INFO - 🔍 开始提取文档目录: pboc_statistics
+2025-07-22 14:38:27,627 - __main__ - INFO - 📁 文件路径: data/documents/人民银行金融统计制度汇编.pdf
+2025-07-22 14:38:27,627 - DocumentPreprocessor - INFO - 开始提取文档目录: pboc_statistics
+2025-07-22 14:38:27,627 - DocumentPreprocessor - INFO - 使用GROBID提取文本: data/documents/人民银行金融统计制度汇编.pdf
+2025-07-22 14:38:27,629 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 14:38:28,848 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "POST http://localhost:8070/api/processHeaderDocument HTTP/11" 200 644
+2025-07-22 14:38:28,859 - DocumentPreprocessor - INFO - GROBID提取成功，文本长度: 121 字符
+2025-07-22 14:38:28,860 - DocumentPreprocessor - INFO - 使用LLM分析文档目录: pboc_statistics
+2025-07-22 14:38:28,861 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): dashscope.aliyuncs.com:443
+2025-07-22 14:38:30,412 - urllib3.connectionpool - DEBUG - https://dashscope.aliyuncs.com:443 "POST /api/v1/services/aigc/text-generation/generation HTTP/11" 200 None
+2025-07-22 14:38:30,414 - DocumentPreprocessor - INFO - LLM目录分析完成: pboc_statistics, 0个章节, 置信度: 0.85
+2025-07-22 14:38:30,415 - DocumentPreprocessor - INFO - ✅ 目录数据已保存: data/toc/pboc_statistics_toc.json
+2025-07-22 14:38:30,415 - DocumentPreprocessor - INFO - 📋 文档 pboc_statistics 提取完成，共 0 个章节
+2025-07-22 14:38:30,415 - DocumentPreprocessor - INFO - 📊 pboc_statistics 状态更新:
+2025-07-22 14:38:30,415 - DocumentPreprocessor - INFO -    - 提取状态: completed
+2025-07-22 14:38:30,415 - DocumentPreprocessor - INFO -    - 置信度: 0.85
+2025-07-22 14:38:30,415 - DocumentPreprocessor - INFO -    - 章节数: 0
+2025-07-22 14:38:30,415 - __main__ - INFO - ✅ 目录提取成功: pboc_statistics
+2025-07-22 14:38:30,415 - __main__ - INFO - 📋 提取到 0 个章节
+2025-07-22 14:38:30,415 - __main__ - INFO - 🎯 置信度: 0.85
+2025-07-22 14:38:30,415 - __main__ - INFO - 🎉 文档处理完成
+2025-07-22 15:01:00,885 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 15:01:00,886 - __main__ - INFO - 🤖 初始化LLM...
+2025-07-22 15:01:00,886 - QwenLLM - INFO - ✅ Qwen LLM初始化完成: qwen-turbo
+2025-07-22 15:01:00,886 - __main__ - INFO - 📄 初始化文档预处理器...
+2025-07-22 15:01:00,889 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:01:00,934 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/isalive HTTP/11" 200 4
+2025-07-22 15:01:00,934 - DocumentPreprocessor - INFO - ✅ GROBID服务连接成功: http://localhost:8070
+2025-07-22 15:01:00,936 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:01:00,956 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/version HTTP/11" 200 5
+2025-07-22 15:01:00,957 - DocumentPreprocessor - INFO - 📋 GROBID版本: 0.8.0
+2025-07-22 15:01:00,957 - DocumentPreprocessor - INFO - ✅ 依赖检查完成
+2025-07-22 15:01:00,957 - DocumentPreprocessor - INFO - ✅ 文档预处理器已启用 (GROBID Docker + LLM)
+2025-07-22 15:01:00,957 - __main__ - INFO - 🔍 开始提取文档目录: pboc_statistics
+2025-07-22 15:01:00,957 - __main__ - INFO - 📁 文件路径: data/documents/人民银行金融统计制度汇编.pdf
+2025-07-22 15:01:00,957 - DocumentPreprocessor - INFO - 开始提取文档目录: pboc_statistics
+2025-07-22 15:01:00,957 - DocumentPreprocessor - INFO - 使用GROBID提取文本: data/documents/人民银行金融统计制度汇编.pdf
+2025-07-22 15:01:00,959 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:01:03,603 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "POST http://localhost:8070/api/processFulltextDocument HTTP/11" 200 None
+2025-07-22 15:01:03,613 - DocumentPreprocessor - INFO - GROBID提取成功，文本长度: 9105 字符
+2025-07-22 15:01:03,613 - DocumentPreprocessor - INFO - 使用LLM分析文档目录: pboc_statistics
+2025-07-22 15:01:03,614 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): dashscope.aliyuncs.com:443
+2025-07-22 15:01:36,247 - urllib3.connectionpool - DEBUG - https://dashscope.aliyuncs.com:443 "POST /api/v1/services/aigc/text-generation/generation HTTP/11" 200 None
+2025-07-22 15:01:36,258 - DocumentPreprocessor - INFO - LLM目录分析完成: pboc_statistics, 29个章节, 置信度: 0.85
+2025-07-22 15:01:36,272 - DocumentPreprocessor - INFO - ✅ 目录数据已保存: data/toc/pboc_statistics_toc.yaml
+2025-07-22 15:01:36,272 - DocumentPreprocessor - INFO - 📋 文档 pboc_statistics 提取完成，共 29 个章节
+2025-07-22 15:01:36,272 - DocumentPreprocessor - INFO - 📊 pboc_statistics 状态更新:
+2025-07-22 15:01:36,272 - DocumentPreprocessor - INFO -    - 提取状态: completed
+2025-07-22 15:01:36,272 - DocumentPreprocessor - INFO -    - 置信度: 0.85
+2025-07-22 15:01:36,272 - DocumentPreprocessor - INFO -    - 章节数: 29
+2025-07-22 15:01:36,273 - __main__ - INFO - ✅ 目录提取成功: pboc_statistics
+2025-07-22 15:01:36,273 - __main__ - INFO - 📋 提取到 29 个章节
+2025-07-22 15:01:36,273 - __main__ - INFO - 🎯 置信度: 0.85
+2025-07-22 15:01:36,273 - __main__ - INFO - 🎉 文档处理完成
+2025-07-22 15:14:13,084 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 15:14:13,084 - __main__ - INFO - 📋 可用的文档ID:
+2025-07-22 15:14:13,084 - __main__ - INFO -   • report_1104_2024: 银行业监管统计报表制度2024版 (状态: pending)
+2025-07-22 15:14:13,084 - __main__ - INFO -   • report_1104_2022: 银行业监管统计报表制度2022版 (状态: pending)
+2025-07-22 15:14:13,084 - __main__ - INFO -   • pboc_statistics: 人民银行金融统计制度汇编 (状态: pending)
+2025-07-22 15:14:13,084 - __main__ - INFO -   • east_data_structure: EAST系统数据结构说明 (状态: pending)
+2025-07-22 15:14:24,649 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 15:14:24,649 - __main__ - INFO - 🤖 初始化LLM...
+2025-07-22 15:14:24,649 - QwenLLM - INFO - ✅ Qwen LLM初始化完成: qwen-turbo
+2025-07-22 15:14:24,649 - __main__ - INFO - 📄 初始化文档预处理器...
+2025-07-22 15:14:24,653 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:14:24,717 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/isalive HTTP/11" 200 4
+2025-07-22 15:14:24,718 - DocumentPreprocessor - INFO - ✅ GROBID服务连接成功: http://localhost:8070
+2025-07-22 15:14:24,718 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:14:24,725 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/version HTTP/11" 200 5
+2025-07-22 15:14:24,725 - DocumentPreprocessor - INFO - 📋 GROBID版本: 0.8.0
+2025-07-22 15:14:24,725 - DocumentPreprocessor - INFO - ✅ 依赖检查完成
+2025-07-22 15:14:24,726 - DocumentPreprocessor - INFO - ✅ 文档预处理器已启用 (GROBID Docker + LLM)
+2025-07-22 15:14:24,726 - __main__ - INFO - 🔍 开始提取文档目录: report_1104_2024
+2025-07-22 15:14:24,726 - __main__ - INFO - 📁 文件路径: data/KnowledgeBase/1104报表合辑【2024版】.docx
+2025-07-22 15:14:24,726 - DocumentPreprocessor - INFO - 开始提取文档目录: report_1104_2024
+2025-07-22 15:14:24,726 - DocumentPreprocessor - INFO - 使用LibreOffice转换DOCX为PDF: data/KnowledgeBase/1104报表合辑【2024版】.docx
+2025-07-22 15:14:24,737 - DocumentPreprocessor - ERROR - LibreOffice未安装或不在PATH中
+2025-07-22 15:14:24,737 - DocumentPreprocessor - ERROR - 请安装LibreOffice: brew install --cask libreoffice
+2025-07-22 15:14:24,737 - __main__ - ERROR - ❌ 目录提取失败: report_1104_2024
+2025-07-22 15:14:24,737 - __main__ - ERROR - 错误信息: 未知错误
+2025-07-22 15:14:24,737 - __main__ - ERROR - 💥 文档处理失败
+2025-07-22 15:18:44,620 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 15:18:44,620 - __main__ - INFO - 🤖 初始化LLM...
+2025-07-22 15:18:44,620 - QwenLLM - INFO - ✅ Qwen LLM初始化完成: qwen-turbo
+2025-07-22 15:18:44,620 - __main__ - INFO - 📄 初始化文档预处理器...
+2025-07-22 15:18:44,623 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:18:44,668 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/isalive HTTP/11" 200 4
+2025-07-22 15:18:44,668 - DocumentPreprocessor - INFO - ✅ GROBID服务连接成功: http://localhost:8070
+2025-07-22 15:18:44,668 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:18:44,676 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/version HTTP/11" 200 5
+2025-07-22 15:18:44,676 - DocumentPreprocessor - INFO - 📋 GROBID版本: 0.8.0
+2025-07-22 15:18:44,676 - DocumentPreprocessor - INFO - ✅ 依赖检查完成
+2025-07-22 15:18:44,676 - DocumentPreprocessor - INFO - ✅ 文档预处理器已启用 (GROBID Docker + LLM)
+2025-07-22 15:18:44,676 - __main__ - INFO - 🔍 开始提取文档目录: report_1104_2024
+2025-07-22 15:18:44,676 - __main__ - INFO - 📁 文件路径: data/KnowledgeBase/1104报表合辑【2024版】.docx
+2025-07-22 15:18:44,676 - DocumentPreprocessor - INFO - 开始提取文档目录: report_1104_2024
+2025-07-22 15:18:44,676 - DocumentPreprocessor - INFO - 使用LibreOffice转换DOCX为PDF: data/KnowledgeBase/1104报表合辑【2024版】.docx
+2025-07-22 15:20:15,812 - DocumentPreprocessor - INFO - DOCX转PDF成功: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmp3mrkxmpv/1104报表合辑【2024版】.pdf
+2025-07-22 15:20:15,813 - DocumentPreprocessor - INFO - 使用GROBID提取文本: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmp3mrkxmpv/1104报表合辑【2024版】.pdf
+2025-07-22 15:20:15,820 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:20:35,919 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "POST http://localhost:8070/api/processFulltextDocument HTTP/11" 200 None
+2025-07-22 15:20:35,936 - DocumentPreprocessor - INFO - GROBID提取成功，文本长度: 21644 字符
+2025-07-22 15:20:35,939 - DocumentPreprocessor - INFO - 使用LLM分析文档目录: report_1104_2024
+2025-07-22 15:20:35,940 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): dashscope.aliyuncs.com:443
+2025-07-22 15:21:05,248 - urllib3.connectionpool - DEBUG - https://dashscope.aliyuncs.com:443 "POST /api/v1/services/aigc/text-generation/generation HTTP/11" 200 None
+2025-07-22 15:21:05,251 - DocumentPreprocessor - INFO - LLM目录分析完成: report_1104_2024, 5个章节, 置信度: 0.85
+2025-07-22 15:21:05,260 - DocumentPreprocessor - INFO - ✅ 目录数据已保存: data/toc/report_1104_2024_toc.yaml
+2025-07-22 15:21:05,260 - DocumentPreprocessor - INFO - 📋 文档 report_1104_2024 提取完成，共 5 个章节
+2025-07-22 15:21:05,260 - DocumentPreprocessor - INFO - 📊 report_1104_2024 状态更新:
+2025-07-22 15:21:05,260 - DocumentPreprocessor - INFO -    - 提取状态: completed
+2025-07-22 15:21:05,260 - DocumentPreprocessor - INFO -    - 置信度: 0.85
+2025-07-22 15:21:05,260 - DocumentPreprocessor - INFO -    - 章节数: 5
+2025-07-22 15:21:05,260 - __main__ - INFO - ✅ 目录提取成功: report_1104_2024
+2025-07-22 15:21:05,260 - __main__ - INFO - 📋 提取到 5 个章节
+2025-07-22 15:21:05,260 - __main__ - INFO - 🎯 置信度: 0.85
+2025-07-22 15:21:05,261 - __main__ - INFO - 🎉 文档处理完成
+2025-07-22 15:21:26,230 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 15:21:26,230 - __main__ - INFO - 🤖 初始化LLM...
+2025-07-22 15:21:26,230 - QwenLLM - INFO - ✅ Qwen LLM初始化完成: qwen-turbo
+2025-07-22 15:21:26,230 - __main__ - INFO - 📄 初始化文档预处理器...
+2025-07-22 15:21:26,234 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:21:26,285 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/isalive HTTP/11" 200 4
+2025-07-22 15:21:26,286 - DocumentPreprocessor - INFO - ✅ GROBID服务连接成功: http://localhost:8070
+2025-07-22 15:21:26,287 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:21:26,293 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/version HTTP/11" 200 5
+2025-07-22 15:21:26,293 - DocumentPreprocessor - INFO - 📋 GROBID版本: 0.8.0
+2025-07-22 15:21:26,293 - DocumentPreprocessor - INFO - ✅ 依赖检查完成
+2025-07-22 15:21:26,293 - DocumentPreprocessor - INFO - ✅ 文档预处理器已启用 (GROBID Docker + LLM)
+2025-07-22 15:21:26,293 - __main__ - INFO - 🔍 开始提取文档目录: report_1104_2022
+2025-07-22 15:21:26,293 - __main__ - INFO - 📁 文件路径: data/KnowledgeBase/1104报表合辑【2022版】.docx
+2025-07-22 15:21:26,293 - DocumentPreprocessor - INFO - 开始提取文档目录: report_1104_2022
+2025-07-22 15:21:26,293 - DocumentPreprocessor - INFO - 使用LibreOffice转换DOCX为PDF: data/KnowledgeBase/1104报表合辑【2022版】.docx
+2025-07-22 15:21:59,609 - DocumentPreprocessor - INFO - DOCX转PDF成功: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmpui_u8a3h/1104报表合辑【2022版】.pdf
+2025-07-22 15:21:59,610 - DocumentPreprocessor - INFO - 使用GROBID提取文本: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmpui_u8a3h/1104报表合辑【2022版】.pdf
+2025-07-22 15:21:59,615 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:22:02,482 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "POST http://localhost:8070/api/processFulltextDocument HTTP/11" 200 None
+2025-07-22 15:22:02,497 - DocumentPreprocessor - INFO - GROBID提取成功，文本长度: 19800 字符
+2025-07-22 15:22:02,499 - DocumentPreprocessor - INFO - 使用LLM分析文档目录: report_1104_2022
+2025-07-22 15:22:02,500 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): dashscope.aliyuncs.com:443
+2025-07-22 15:22:29,297 - __main__ - INFO - 
+⏹️ 用户中断操作
+2025-07-22 15:22:47,068 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 15:22:47,069 - __main__ - INFO - 🤖 初始化LLM...
+2025-07-22 15:22:47,069 - QwenLLM - INFO - ✅ Qwen LLM初始化完成: qwen-turbo
+2025-07-22 15:22:47,069 - __main__ - INFO - 📄 初始化文档预处理器...
+2025-07-22 15:22:47,072 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:22:47,156 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/isalive HTTP/11" 200 4
+2025-07-22 15:22:47,156 - DocumentPreprocessor - INFO - ✅ GROBID服务连接成功: http://localhost:8070
+2025-07-22 15:22:47,157 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:22:47,163 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/version HTTP/11" 200 5
+2025-07-22 15:22:47,163 - DocumentPreprocessor - INFO - 📋 GROBID版本: 0.8.0
+2025-07-22 15:22:47,163 - DocumentPreprocessor - INFO - ✅ 依赖检查完成
+2025-07-22 15:22:47,163 - DocumentPreprocessor - INFO - ✅ 文档预处理器已启用 (GROBID Docker + LLM)
+2025-07-22 15:22:47,163 - __main__ - INFO - 🔍 开始提取文档目录: report_1104_2022
+2025-07-22 15:22:47,163 - __main__ - INFO - 📁 文件路径: data/KnowledgeBase/1104报表合辑【2022版】.docx
+2025-07-22 15:22:47,163 - DocumentPreprocessor - INFO - 开始提取文档目录: report_1104_2022
+2025-07-22 15:22:47,163 - DocumentPreprocessor - INFO - 使用LibreOffice转换DOCX为PDF: data/KnowledgeBase/1104报表合辑【2022版】.docx
+2025-07-22 15:23:19,977 - DocumentPreprocessor - INFO - DOCX转PDF成功: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmplzq9h4j1/1104报表合辑【2022版】.pdf
+2025-07-22 15:23:19,978 - DocumentPreprocessor - INFO - 使用GROBID提取文本: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmplzq9h4j1/1104报表合辑【2022版】.pdf
+2025-07-22 15:23:19,984 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:23:22,478 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "POST http://localhost:8070/api/processFulltextDocument HTTP/11" 200 None
+2025-07-22 15:23:22,497 - DocumentPreprocessor - INFO - GROBID提取成功，文本长度: 19799 字符
+2025-07-22 15:23:22,499 - DocumentPreprocessor - INFO - 使用LLM分析文档目录: report_1104_2022
+2025-07-22 15:23:22,500 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): dashscope.aliyuncs.com:443
+2025-07-22 15:24:12,467 - urllib3.connectionpool - DEBUG - https://dashscope.aliyuncs.com:443 "POST /api/v1/services/aigc/text-generation/generation HTTP/11" 200 None
+2025-07-22 15:24:12,470 - DocumentPreprocessor - ERROR - LLM响应不是有效的JSON格式
+2025-07-22 15:24:12,470 - DocumentPreprocessor - INFO - 使用兜底方法解析LLM响应
+2025-07-22 15:24:12,473 - DocumentPreprocessor - INFO - ✅ 目录数据已保存: data/toc/report_1104_2022_toc.yaml
+2025-07-22 15:24:12,473 - DocumentPreprocessor - INFO - 📋 文档 report_1104_2022 提取完成，共 0 个章节
+2025-07-22 15:24:12,473 - DocumentPreprocessor - INFO - 📊 report_1104_2022 状态更新:
+2025-07-22 15:24:12,473 - DocumentPreprocessor - INFO -    - 提取状态: fallback_parsed
+2025-07-22 15:24:12,474 - DocumentPreprocessor - INFO -    - 置信度: 0.30
+2025-07-22 15:24:12,474 - DocumentPreprocessor - INFO -    - 章节数: 0
+2025-07-22 15:24:12,474 - __main__ - ERROR - ❌ 目录提取失败: report_1104_2022
+2025-07-22 15:24:12,474 - __main__ - ERROR - 错误信息: 未知错误
+2025-07-22 15:24:12,474 - __main__ - ERROR - 💥 文档处理失败
+2025-07-22 15:25:55,561 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 15:25:55,561 - __main__ - INFO - 🤖 初始化LLM...
+2025-07-22 15:25:55,561 - QwenLLM - INFO - ✅ Qwen LLM初始化完成: qwen-turbo
+2025-07-22 15:25:55,561 - __main__ - INFO - 📄 初始化文档预处理器...
+2025-07-22 15:25:55,564 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:25:55,631 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/isalive HTTP/11" 200 4
+2025-07-22 15:25:55,632 - DocumentPreprocessor - INFO - ✅ GROBID服务连接成功: http://localhost:8070
+2025-07-22 15:25:55,632 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:25:55,638 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/version HTTP/11" 200 5
+2025-07-22 15:25:55,638 - DocumentPreprocessor - INFO - 📋 GROBID版本: 0.8.0
+2025-07-22 15:25:55,638 - DocumentPreprocessor - INFO - ✅ 依赖检查完成
+2025-07-22 15:25:55,638 - DocumentPreprocessor - INFO - ✅ 文档预处理器已启用 (GROBID Docker + LLM)
+2025-07-22 15:25:55,638 - __main__ - INFO - 🚀 开始批量处理 4 个文档
+2025-07-22 15:25:55,638 - __main__ - INFO - 
+📄 处理文档 1/4: report_1104_2024
+2025-07-22 15:25:55,638 - __main__ - INFO - 🔍 开始提取文档目录: report_1104_2024
+2025-07-22 15:25:55,638 - __main__ - INFO - 📁 文件路径: data/KnowledgeBase/1104报表合辑【2024版】.docx
+2025-07-22 15:25:55,638 - DocumentPreprocessor - INFO - 开始提取文档目录: report_1104_2024
+2025-07-22 15:25:55,638 - DocumentPreprocessor - INFO - 使用LibreOffice转换DOCX为PDF: data/KnowledgeBase/1104报表合辑【2024版】.docx
+2025-07-22 15:27:56,096 - DocumentPreprocessor - ERROR - LibreOffice转换超时
+2025-07-22 15:27:56,097 - __main__ - ERROR - ❌ 目录提取失败: report_1104_2024
+2025-07-22 15:27:56,097 - __main__ - ERROR - 错误信息: 未知错误
+2025-07-22 15:27:56,097 - __main__ - INFO - 📊 进度: 25.0% (1/4)
+2025-07-22 15:27:56,097 - __main__ - INFO - 
+📄 处理文档 2/4: report_1104_2022
+2025-07-22 15:27:56,098 - __main__ - INFO - 🔍 开始提取文档目录: report_1104_2022
+2025-07-22 15:27:56,098 - __main__ - INFO - 📁 文件路径: data/KnowledgeBase/1104报表合辑【2022版】.docx
+2025-07-22 15:27:56,098 - DocumentPreprocessor - INFO - 开始提取文档目录: report_1104_2022
+2025-07-22 15:27:56,098 - DocumentPreprocessor - INFO - 使用LibreOffice转换DOCX为PDF: data/KnowledgeBase/1104报表合辑【2022版】.docx
+2025-07-22 15:28:39,405 - DocumentPreprocessor - INFO - DOCX转PDF成功: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmpovbcp07j/1104报表合辑【2022版】.pdf
+2025-07-22 15:28:39,405 - DocumentPreprocessor - INFO - 使用GROBID提取文本: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmpovbcp07j/1104报表合辑【2022版】.pdf
+2025-07-22 15:28:39,411 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:28:41,982 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "POST http://localhost:8070/api/processFulltextDocument HTTP/11" 200 None
+2025-07-22 15:28:42,003 - DocumentPreprocessor - INFO - GROBID提取成功，文本长度: 19799 字符
+2025-07-22 15:28:42,005 - DocumentPreprocessor - INFO - 使用LLM分析文档目录: report_1104_2022
+2025-07-22 15:28:42,006 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): dashscope.aliyuncs.com:443
+2025-07-22 15:29:07,754 - urllib3.connectionpool - DEBUG - https://dashscope.aliyuncs.com:443 "POST /api/v1/services/aigc/text-generation/generation HTTP/11" 200 None
+2025-07-22 15:29:07,757 - DocumentPreprocessor - INFO - LLM目录分析完成: report_1104_2022, 5个章节, 置信度: 0.85
+2025-07-22 15:29:07,764 - DocumentPreprocessor - INFO - ✅ 目录数据已保存: data/toc/report_1104_2022_toc.yaml
+2025-07-22 15:29:07,765 - DocumentPreprocessor - INFO - 📋 文档 report_1104_2022 提取完成，共 5 个章节
+2025-07-22 15:29:07,765 - DocumentPreprocessor - INFO - 📊 report_1104_2022 状态更新:
+2025-07-22 15:29:07,765 - DocumentPreprocessor - INFO -    - 提取状态: completed
+2025-07-22 15:29:07,765 - DocumentPreprocessor - INFO -    - 置信度: 0.85
+2025-07-22 15:29:07,765 - DocumentPreprocessor - INFO -    - 章节数: 5
+2025-07-22 15:29:07,765 - __main__ - INFO - ✅ 目录提取成功: report_1104_2022
+2025-07-22 15:29:07,765 - __main__ - INFO - 📋 提取到 5 个章节
+2025-07-22 15:29:07,765 - __main__ - INFO - 🎯 置信度: 0.85
+2025-07-22 15:29:07,765 - __main__ - INFO - 📊 进度: 50.0% (2/4)
+2025-07-22 15:29:07,765 - __main__ - INFO - 
+📄 处理文档 3/4: pboc_statistics
+2025-07-22 15:29:07,766 - __main__ - INFO - 🔍 开始提取文档目录: pboc_statistics
+2025-07-22 15:29:07,766 - __main__ - INFO - 📁 文件路径: data/KnowledgeBase/人民银行金融统计制度汇编.pdf
+2025-07-22 15:29:07,766 - DocumentPreprocessor - INFO - 开始提取文档目录: pboc_statistics
+2025-07-22 15:29:07,766 - DocumentPreprocessor - INFO - 使用GROBID提取文本: data/KnowledgeBase/人民银行金融统计制度汇编.pdf
+2025-07-22 15:29:07,770 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:29:09,527 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "POST http://localhost:8070/api/processFulltextDocument HTTP/11" 200 None
+2025-07-22 15:29:09,528 - DocumentPreprocessor - INFO - GROBID提取成功，文本长度: 9105 字符
+2025-07-22 15:29:09,529 - DocumentPreprocessor - INFO - 使用LLM分析文档目录: pboc_statistics
+2025-07-22 15:29:09,531 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): dashscope.aliyuncs.com:443
+2025-07-22 15:29:40,455 - urllib3.connectionpool - DEBUG - https://dashscope.aliyuncs.com:443 "POST /api/v1/services/aigc/text-generation/generation HTTP/11" 200 None
+2025-07-22 15:29:40,457 - DocumentPreprocessor - INFO - LLM目录分析完成: pboc_statistics, 29个章节, 置信度: 0.85
+2025-07-22 15:29:40,460 - DocumentPreprocessor - INFO - ✅ 目录数据已保存: data/toc/pboc_statistics_toc.yaml
+2025-07-22 15:29:40,460 - DocumentPreprocessor - INFO - 📋 文档 pboc_statistics 提取完成，共 29 个章节
+2025-07-22 15:29:40,460 - DocumentPreprocessor - INFO - 📊 pboc_statistics 状态更新:
+2025-07-22 15:29:40,460 - DocumentPreprocessor - INFO -    - 提取状态: completed
+2025-07-22 15:29:40,460 - DocumentPreprocessor - INFO -    - 置信度: 0.85
+2025-07-22 15:29:40,460 - DocumentPreprocessor - INFO -    - 章节数: 29
+2025-07-22 15:29:40,460 - __main__ - INFO - ✅ 目录提取成功: pboc_statistics
+2025-07-22 15:29:40,460 - __main__ - INFO - 📋 提取到 29 个章节
+2025-07-22 15:29:40,460 - __main__ - INFO - 🎯 置信度: 0.85
+2025-07-22 15:29:40,460 - __main__ - INFO - 📊 进度: 75.0% (3/4)
+2025-07-22 15:29:40,460 - __main__ - INFO - 
+📄 处理文档 4/4: east_data_structure
+2025-07-22 15:29:40,461 - __main__ - INFO - 🔍 开始提取文档目录: east_data_structure
+2025-07-22 15:29:40,461 - __main__ - INFO - 📁 文件路径: data/KnowledgeBase/EAST数据结构.xlsx
+2025-07-22 15:29:40,461 - DocumentPreprocessor - INFO - 开始提取文档目录: east_data_structure
+2025-07-22 15:29:40,461 - DocumentPreprocessor - WARNING - 跳过Excel文件的目录提取: data/KnowledgeBase/EAST数据结构.xlsx
+2025-07-22 15:29:40,462 - __main__ - ERROR - ❌ 目录提取失败: east_data_structure
+2025-07-22 15:29:40,462 - __main__ - ERROR - 错误信息: 未知错误
+2025-07-22 15:29:40,462 - __main__ - INFO - 📊 进度: 100.0% (4/4)
+2025-07-22 15:29:40,462 - __main__ - INFO - 
+==================================================
+2025-07-22 15:29:40,462 - __main__ - INFO - 📊 处理结果摘要
+2025-07-22 15:29:40,462 - __main__ - INFO - ==================================================
+2025-07-22 15:29:40,462 - __main__ - INFO - 总文档数: 4
+2025-07-22 15:29:40,462 - __main__ - INFO - 成功: 2
+2025-07-22 15:29:40,462 - __main__ - INFO - 失败: 2
+2025-07-22 15:29:40,462 - __main__ - INFO - 跳过: 0
+2025-07-22 15:29:40,462 - __main__ - INFO - 
+📋 详细结果:
+2025-07-22 15:29:40,462 - __main__ - INFO -   ❌ report_1104_2024: failed
+2025-07-22 15:29:40,462 - __main__ - INFO -   ✅ report_1104_2022: success
+2025-07-22 15:29:40,462 - __main__ - INFO -   ✅ pboc_statistics: success
+2025-07-22 15:29:40,462 - __main__ - INFO -   ❌ east_data_structure: failed
+2025-07-22 15:29:40,462 - __main__ - WARNING - ⚠️ 有 2 个文档处理失败
+2025-07-22 15:53:05,197 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 15:53:05,197 - __main__ - INFO - 🤖 初始化LLM...
+2025-07-22 15:53:05,197 - QwenLLM - INFO - ✅ Qwen LLM初始化完成: qwen-turbo
+2025-07-22 15:53:05,197 - __main__ - INFO - 📄 初始化文档预处理器...
+2025-07-22 15:53:05,200 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:53:05,280 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/isalive HTTP/11" 200 4
+2025-07-22 15:53:05,281 - DocumentPreprocessor - INFO - ✅ GROBID服务连接成功: http://localhost:8070
+2025-07-22 15:53:05,281 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:53:05,298 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/version HTTP/11" 200 5
+2025-07-22 15:53:05,299 - DocumentPreprocessor - INFO - 📋 GROBID版本: 0.8.0
+2025-07-22 15:53:05,299 - DocumentPreprocessor - INFO - ✅ 依赖检查完成
+2025-07-22 15:53:05,299 - DocumentPreprocessor - INFO - ✅ 文档预处理器已启用 (GROBID Docker + LLM)
+2025-07-22 15:53:05,299 - __main__ - INFO - 🔍 开始提取文档目录: report_1104_2022
+2025-07-22 15:53:05,299 - __main__ - INFO - 📁 文件路径: data/KnowledgeBase/1104报表合辑【2022版】.docx
+2025-07-22 15:53:05,299 - DocumentPreprocessor - INFO - 开始提取文档目录: report_1104_2022
+2025-07-22 15:53:05,299 - DocumentPreprocessor - INFO - 使用LibreOffice转换DOCX为PDF: data/KnowledgeBase/1104报表合辑【2022版】.docx
+2025-07-22 15:53:45,918 - DocumentPreprocessor - INFO - DOCX转PDF成功: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmpnwhmj6dw/1104报表合辑【2022版】.pdf
+2025-07-22 15:53:45,918 - DocumentPreprocessor - INFO - 使用GROBID提取文本: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmpnwhmj6dw/1104报表合辑【2022版】.pdf
+2025-07-22 15:53:45,924 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:53:48,421 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "POST http://localhost:8070/api/processFulltextDocument HTTP/11" 200 None
+2025-07-22 15:53:48,443 - DocumentPreprocessor - INFO - GROBID提取成功，文本长度: 19799 字符
+2025-07-22 15:53:48,445 - DocumentPreprocessor - INFO - 使用LLM分析文档目录: report_1104_2022
+2025-07-22 15:53:48,446 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): dashscope.aliyuncs.com:443
+2025-07-22 15:54:24,270 - urllib3.connectionpool - DEBUG - https://dashscope.aliyuncs.com:443 "POST /api/v1/services/aigc/text-generation/generation HTTP/11" 200 None
+2025-07-22 15:54:24,275 - DocumentPreprocessor - ERROR - LLM响应不是有效的JSON格式
+2025-07-22 15:54:24,276 - DocumentPreprocessor - INFO - 使用兜底方法解析LLM响应
+2025-07-22 15:54:24,280 - DocumentPreprocessor - INFO - ✅ 目录数据已保存: data/toc/report_1104_2022_toc.yaml
+2025-07-22 15:54:24,280 - DocumentPreprocessor - INFO - 📋 文档 report_1104_2022 提取完成，共 0 个章节
+2025-07-22 15:54:24,281 - DocumentPreprocessor - INFO - 📊 report_1104_2022 状态更新:
+2025-07-22 15:54:24,281 - DocumentPreprocessor - INFO -    - 提取状态: fallback_parsed
+2025-07-22 15:54:24,281 - DocumentPreprocessor - INFO -    - 置信度: 0.30
+2025-07-22 15:54:24,281 - DocumentPreprocessor - INFO -    - 章节数: 0
+2025-07-22 15:54:24,281 - __main__ - ERROR - ❌ 目录提取失败: report_1104_2022
+2025-07-22 15:54:24,281 - __main__ - ERROR - 错误信息: 未知错误
+2025-07-22 15:54:24,282 - __main__ - ERROR - 💥 文档处理失败
+2025-07-22 15:56:09,485 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 15:56:09,485 - __main__ - INFO - 🤖 初始化LLM...
+2025-07-22 15:56:09,485 - QwenLLM - INFO - ✅ Qwen LLM初始化完成: qwen-turbo
+2025-07-22 15:56:09,485 - __main__ - INFO - 📄 初始化文档预处理器...
+2025-07-22 15:56:09,489 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:56:09,562 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/isalive HTTP/11" 200 4
+2025-07-22 15:56:09,562 - DocumentPreprocessor - INFO - ✅ GROBID服务连接成功: http://localhost:8070
+2025-07-22 15:56:09,563 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:56:09,575 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/version HTTP/11" 200 5
+2025-07-22 15:56:09,575 - DocumentPreprocessor - INFO - 📋 GROBID版本: 0.8.0
+2025-07-22 15:56:09,575 - DocumentPreprocessor - INFO - ✅ 依赖检查完成
+2025-07-22 15:56:09,575 - DocumentPreprocessor - INFO - ✅ 文档预处理器已启用 (GROBID Docker + LLM)
+2025-07-22 15:56:09,576 - __main__ - INFO - 🔍 开始提取文档目录: report_1104_2022
+2025-07-22 15:56:09,576 - __main__ - INFO - 📁 文件路径: data/KnowledgeBase/1104报表合辑【2022版】.docx
+2025-07-22 15:56:09,576 - DocumentPreprocessor - INFO - 开始提取文档目录: report_1104_2022
+2025-07-22 15:56:09,576 - DocumentPreprocessor - INFO - 使用LibreOffice转换DOCX为PDF: data/KnowledgeBase/1104报表合辑【2022版】.docx
+2025-07-22 15:56:48,372 - DocumentPreprocessor - INFO - DOCX转PDF成功: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmpllb_80pm/1104报表合辑【2022版】.pdf
+2025-07-22 15:56:48,373 - DocumentPreprocessor - INFO - 使用GROBID提取文本: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmpllb_80pm/1104报表合辑【2022版】.pdf
+2025-07-22 15:56:48,379 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 15:56:50,877 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "POST http://localhost:8070/api/processFulltextDocument HTTP/11" 200 None
+2025-07-22 15:56:50,889 - DocumentPreprocessor - INFO - GROBID提取成功，文本长度: 19799 字符
+2025-07-22 15:56:50,891 - DocumentPreprocessor - INFO - 使用LLM分析文档目录: report_1104_2022
+2025-07-22 15:56:50,892 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): dashscope.aliyuncs.com:443
+2025-07-22 15:56:58,257 - __main__ - INFO - 
+⏹️ 用户中断操作
+2025-07-22 16:02:28,628 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 16:02:28,628 - __main__ - INFO - 🤖 初始化LLM...
+2025-07-22 16:02:28,628 - DeepSeekLLM - INFO - ✅ DeepSeek LLM初始化完成: deepseek-chat
+2025-07-22 16:02:28,628 - __main__ - INFO - 📄 初始化文档预处理器...
+2025-07-22 16:02:28,632 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 16:02:28,705 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/isalive HTTP/11" 200 4
+2025-07-22 16:02:28,705 - DocumentPreprocessor - INFO - ✅ GROBID服务连接成功: http://localhost:8070
+2025-07-22 16:02:28,706 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 16:02:28,713 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/version HTTP/11" 200 5
+2025-07-22 16:02:28,713 - DocumentPreprocessor - INFO - 📋 GROBID版本: 0.8.0
+2025-07-22 16:02:28,713 - DocumentPreprocessor - INFO - ✅ 依赖检查完成
+2025-07-22 16:02:28,713 - DocumentPreprocessor - INFO - ✅ 文档预处理器已启用 (GROBID Docker + LLM)
+2025-07-22 16:02:28,713 - __main__ - INFO - 🔍 开始提取文档目录: report_1104_2022
+2025-07-22 16:02:28,713 - __main__ - INFO - 📁 文件路径: data/KnowledgeBase/1104报表合辑【2022版】.docx
+2025-07-22 16:02:28,713 - DocumentPreprocessor - INFO - 开始提取文档目录: report_1104_2022
+2025-07-22 16:02:28,713 - DocumentPreprocessor - INFO - 使用LibreOffice转换DOCX为PDF: data/KnowledgeBase/1104报表合辑【2022版】.docx
+2025-07-22 16:03:10,100 - DocumentPreprocessor - INFO - DOCX转PDF成功: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmpmberg24c/1104报表合辑【2022版】.pdf
+2025-07-22 16:03:10,100 - DocumentPreprocessor - INFO - 使用GROBID提取文本: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmpmberg24c/1104报表合辑【2022版】.pdf
+2025-07-22 16:03:10,106 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 16:03:12,771 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "POST http://localhost:8070/api/processFulltextDocument HTTP/11" 200 None
+2025-07-22 16:03:12,788 - DocumentPreprocessor - INFO - GROBID提取成功，文本长度: 19799 字符
+2025-07-22 16:03:12,790 - DocumentPreprocessor - INFO - 使用LLM分析文档目录: report_1104_2022
+2025-07-22 16:03:12,792 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): api.deepseek.com:443
+2025-07-22 16:03:13,255 - urllib3.connectionpool - DEBUG - https://api.deepseek.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2025-07-22 16:06:15,523 - DocumentPreprocessor - DEBUG - LLM原始响应长度: 18261
+2025-07-22 16:06:15,524 - DocumentPreprocessor - DEBUG - LLM响应前500字符: ```json
+{
+    "status": "completed",
+    "extraction_method": "llm_analysis",
+    "last_updated": "2023-11-04T12:00:00Z",
+    "confidence": 0.85,
+    "chapters": [
+        {
+            "chapter_num": "一、",
+            "title": "基础财务",
+            "page": null,
+            "level": 1,
+            "subsections": [
+                {
+                    "chapter_num": "G01",
+                    "title": "资产负债项目统计表",
+                    "page": null,
+                    "level": 2
+                },
+2025-07-22 16:06:15,524 - DocumentPreprocessor - INFO - LLM目录分析完成: report_1104_2022, 22个章节, 置信度: 0.85
+2025-07-22 16:06:15,545 - DocumentPreprocessor - INFO - ✅ 目录数据已保存: data/toc/report_1104_2022_toc.yaml
+2025-07-22 16:06:15,545 - DocumentPreprocessor - INFO - 📋 文档 report_1104_2022 提取完成，共 22 个章节
+2025-07-22 16:06:15,545 - DocumentPreprocessor - INFO - 📊 report_1104_2022 状态更新:
+2025-07-22 16:06:15,545 - DocumentPreprocessor - INFO -    - 提取状态: completed
+2025-07-22 16:06:15,545 - DocumentPreprocessor - INFO -    - 置信度: 0.85
+2025-07-22 16:06:15,545 - DocumentPreprocessor - INFO -    - 章节数: 22
+2025-07-22 16:06:15,545 - __main__ - INFO - ✅ 目录提取成功: report_1104_2022
+2025-07-22 16:06:15,546 - __main__ - INFO - 📋 提取到 22 个章节
+2025-07-22 16:06:15,546 - __main__ - INFO - 🎯 置信度: 0.85
+2025-07-22 16:06:15,546 - __main__ - INFO - 🎉 文档处理完成
+2025-07-22 16:14:17,774 - __main__ - INFO - 🔧 初始化配置管理器...
+2025-07-22 16:14:17,774 - __main__ - INFO - 🤖 初始化LLM...
+2025-07-22 16:14:17,774 - DeepSeekLLM - INFO - ✅ DeepSeek LLM初始化完成: deepseek-chat
+2025-07-22 16:14:17,774 - __main__ - INFO - 📄 初始化文档预处理器...
+2025-07-22 16:14:17,778 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 16:14:17,851 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/isalive HTTP/11" 200 4
+2025-07-22 16:14:17,852 - DocumentPreprocessor - INFO - ✅ GROBID服务连接成功: http://localhost:8070
+2025-07-22 16:14:17,852 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 16:14:17,857 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "GET http://localhost:8070/api/version HTTP/11" 200 5
+2025-07-22 16:14:17,857 - DocumentPreprocessor - INFO - 📋 GROBID版本: 0.8.0
+2025-07-22 16:14:17,857 - DocumentPreprocessor - INFO - ✅ 依赖检查完成
+2025-07-22 16:14:17,857 - DocumentPreprocessor - INFO - ✅ 文档预处理器已启用 (GROBID Docker + LLM)
+2025-07-22 16:14:17,858 - __main__ - INFO - 🔍 开始提取文档目录: report_1104_2024
+2025-07-22 16:14:17,858 - __main__ - INFO - 📁 文件路径: data/KnowledgeBase/1104报表合辑【2024版】.docx
+2025-07-22 16:14:17,858 - DocumentPreprocessor - INFO - 开始提取文档目录: report_1104_2024
+2025-07-22 16:14:17,858 - DocumentPreprocessor - INFO - 使用LibreOffice转换DOCX为PDF: data/KnowledgeBase/1104报表合辑【2024版】.docx
+2025-07-22 16:15:31,129 - DocumentPreprocessor - INFO - DOCX转PDF成功: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmp3aq35ou7/1104报表合辑【2024版】.pdf
+2025-07-22 16:15:31,129 - DocumentPreprocessor - INFO - 使用GROBID提取文本: /var/folders/0c/n4lk9cw15m79r25k_my8kry00000gn/T/tmp3aq35ou7/1104报表合辑【2024版】.pdf
+2025-07-22 16:15:31,143 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:7897
+2025-07-22 16:15:34,976 - urllib3.connectionpool - DEBUG - http://127.0.0.1:7897 "POST http://localhost:8070/api/processFulltextDocument HTTP/11" 200 None
+2025-07-22 16:15:34,997 - DocumentPreprocessor - INFO - GROBID提取成功，文本长度: 20690 字符
+2025-07-22 16:15:35,001 - DocumentPreprocessor - INFO - 使用LLM分析文档目录: report_1104_2024
+2025-07-22 16:15:35,002 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): api.deepseek.com:443
+2025-07-22 16:15:35,482 - urllib3.connectionpool - DEBUG - https://api.deepseek.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2025-07-22 16:16:41,715 - __main__ - INFO - 
+⏹️ 用户中断操作

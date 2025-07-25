@@ -1,0 +1,416 @@
+chapters:
+- chapter_num: 一、
+  level: 1
+  page: null
+  subsections:
+  - chapter_num: G01
+    level: 2
+    page: null
+    title: 资产负债项目统计表
+  - chapter_num: G01_III
+    level: 2
+    page: 20
+    title: 存贷款明细报表(一)
+  - chapter_num: G01_IV
+    level: 2
+    page: 26
+    title: 存贷款明细报表(二)
+  - chapter_num: G01_VII
+    level: 2
+    page: 30
+    title: 贷款投向分行业情况表
+  - chapter_num: G01_IX
+    level: 2
+    page: 36
+    title: 存贷款月日均情况表
+  - chapter_num: G03
+    level: 2
+    page: 40
+    title: 各项资产减值损失准备情况表
+  - chapter_num: G04
+    level: 2
+    page: 47
+    title: 利润表
+  - chapter_num: G05
+    level: 2
+    page: 58
+    title: 个人存贷款情况统计表
+  title: 基础财务
+- chapter_num: 二、
+  level: 1
+  page: 64
+  subsections:
+  - chapter_num: G07
+    level: 2
+    page: 64
+    title: 银行业金融机构主要股东情况统计表
+  - chapter_num: G08
+    level: 2
+    page: 73
+    title: 银行业金融机构引进外商投资情况表
+  title: 股东情况
+- chapter_num: 三、
+  level: 1
+  page: 78
+  subsections:
+  - chapter_num: G44
+    level: 2
+    page: 78
+    title: 杠杆率情况表
+  title: 杠杆率
+- chapter_num: 四、
+  level: 1
+  page: 84
+  subsections:
+  - chapter_num: G40
+    level: 2
+    page: 84
+    title: 资本充足率汇总表
+  - chapter_num: G4A
+    level: 2
+    page: 90
+    title: 合格资本情况表
+  - chapter_num: G4A-1(a)
+    level: 2
+    page: 107
+    title: 贷款损失准备情况表(权重法)
+  - chapter_num: G4B-1
+    level: 2
+    page: 111
+    title: 表内信用风险加权资产计算表(权重法)
+  - chapter_num: G4B-2
+    level: 2
+    page: 124
+    title: 表外信用风险加权资产计算表(权重法)
+  - chapter_num: G4B-3
+    level: 2
+    page: 140
+    title: 交易对手信用风险暴露风险加权资产汇总表(权重法)
+  - chapter_num: G4C
+    level: 2
+    page: 145
+    title: 市场风险资本要求情况表
+  - chapter_num: G4C-1
+    level: 2
+    page: 149
+    title: 市场风险标准法资本要求汇总表
+  - chapter_num: G4C-2
+    level: 2
+    page: 156
+    title: 市场风险内部模型法资本要求情况表
+  - chapter_num: G4D
+    level: 2
+    page: 161
+    title: 操作风险加权资产情况表
+  title: 资本充足
+- chapter_num: 五、
+  level: 1
+  page: 170
+  subsections:
+  - chapter_num: G01_II
+    level: 2
+    page: 170
+    title: 贷款质量五级分类情况简表
+  - chapter_num: G11_I
+    level: 2
+    page: 173
+    title: 按行业分类的贷款(按贷款投向)
+  - chapter_num: G11_II
+    level: 2
+    page: 185
+    title: 资产质量及准备金
+  - chapter_num: G12
+    level: 2
+    page: 195
+    title: 贷款质量迁徙情况表
+  - chapter_num: G13
+    level: 2
+    page: 213
+    title: 押品情况统计表
+  - chapter_num: G14_I
+    level: 2
+    page: 221
+    title: 大额风险暴露总体情况表
+  - chapter_num: G14_II
+    level: 2
+    page: 226
+    title: 大额风险暴露客户情况表
+  - chapter_num: G14_III
+    level: 2
+    page: 231
+    title: 非同业单一客户大额风险暴露情况表
+  - chapter_num: G14_IV
+    level: 2
+    page: 238
+    title: 非同业集团客户及经济依存客户大额风险暴露情况表
+  - chapter_num: G14_V
+    level: 2
+    page: 241
+    title: 同业单一客户大额风险暴露情况表
+  - chapter_num: G14_VI
+    level: 2
+    page: 247
+    title: 同业集团客户大额风险暴露情况表
+  - chapter_num: G15
+    level: 2
+    page: 250
+    title: 最大十家关联方关联交易情况表
+  - chapter_num: S67
+    level: 2
+    page: 257
+    title: 房地产融资风险监测统计表
+  title: 信用风险
+- chapter_num: 六、
+  level: 1
+  page: 263
+  subsections:
+  - chapter_num: G21
+    level: 2
+    page: 263
+    title: 流动性期限缺口统计表
+  - chapter_num: G22
+    level: 2
+    page: 275
+    title: 流动性比例监测表
+  - chapter_num: G23
+    level: 2
+    page: 283
+    title: 最大十家存款客户情况表
+  - chapter_num: G24
+    level: 2
+    page: 286
+    title: 最大百家金融机构同业融入情况表
+  - chapter_num: G25_I
+    level: 2
+    page: 289
+    title: 流动性覆盖率情况表
+  - chapter_num: G25_II
+    level: 2
+    page: 318
+    title: 净稳定资金比例情况表
+  - chapter_num: G26
+    level: 2
+    page: 332
+    title: 优质流动性资产充足率统计表
+  title: 流动性风险
+- chapter_num: 七、
+  level: 1
+  page: 343
+  subsections:
+  - chapter_num: G32
+    level: 2
+    page: 343
+    title: 外汇风险敞口情况表
+  - chapter_num: G33_I
+    level: 2
+    page: 349
+    title: 银行账簿利率风险计量报表(标准化计量框架简化版)
+  - chapter_num: G33_II
+    level: 2
+    page: 355
+    title: 银行账簿利率风险计量报表(标准化计量框架完整版)
+  title: 市场风险
+- chapter_num: 八、
+  level: 1
+  page: 363
+  subsections:
+  - chapter_num: G51
+    level: 2
+    page: 363
+    title: 国别风险敞口及拨备统计表
+  - chapter_num: G52
+    level: 2
+    page: 376
+    title: 地方政府融资平台及支出责任债务持有情况统计表
+  - chapter_num: G53
+    level: 2
+    page: 379
+    title: 分地区情况表
+  title: 国别及区域性风险
+- chapter_num: 九、
+  level: 1
+  page: 389
+  subsections:
+  - chapter_num: G01_I
+    level: 2
+    page: 389
+    title: 表外业务情况表
+  - chapter_num: G02
+    level: 2
+    page: 397
+    title: 衍生产品交易业务情况表
+  title: 表外、衍生品
+- chapter_num: 十、
+  level: 1
+  page: 405
+  subsections:
+  - chapter_num: G06
+    level: 2
+    page: 405
+    title: 非保本理财业务月度统计表
+  - chapter_num: G06a
+    level: 2
+    page: 423
+    title: 非保本理财业务月度统计表(理财子公司)
+  - chapter_num: G06b
+    level: 2
+    page: 445
+    title: 银行理财子公司净资本监管报表
+  title: 理财
+- chapter_num: 十一、
+  level: 1
+  page: 454
+  subsections:
+  - chapter_num: G09
+    level: 2
+    page: 454
+    title: 商业银行互联网贷款情况统计表
+  title: 互联网贷款
+- chapter_num: 十二、
+  level: 1
+  page: 470
+  subsections:
+  - chapter_num: G16
+    level: 2
+    page: 470
+    title: 股权质押融资情况汇总表
+  title: 股权质押业务
+- chapter_num: 十三、
+  level: 1
+  page: 475
+  subsections:
+  - chapter_num: G17
+    level: 2
+    page: 475
+    title: 银行卡业务情况表
+  title: 银行卡业务
+- chapter_num: 十四、
+  level: 1
+  page: 488
+  subsections:
+  - chapter_num: G18
+    level: 2
+    page: 488
+    title: 融资工具发行情况表
+  title: 融资工具发行
+- chapter_num: 十五、
+  level: 1
+  page: 494
+  subsections:
+  - chapter_num: G27
+    level: 2
+    page: 494
+    title: 主要负债项目明细表
+  title: 负债业务
+- chapter_num: 十六、
+  level: 1
+  page: 498
+  subsections:
+  - chapter_num: G31
+    level: 2
+    page: 498
+    title: 投资业务情况表
+  - chapter_num: G18_III
+    level: 2
+    page: 515
+    title: 地方政府自主发行债券持有情况统计表
+  title: 投资业务
+- chapter_num: 十七、
+  level: 1
+  page: 520
+  subsections:
+  - chapter_num: G34
+    level: 2
+    page: 520
+    title: 信贷资产转让情况统计表
+  title: 信贷资产转让
+- chapter_num: 十八、
+  level: 1
+  page: 532
+  subsections:
+  - chapter_num: G19
+    level: 2
+    page: 532
+    title: 重点关注行业贷款统计表
+  - chapter_num: S72
+    level: 2
+    page: 547
+    title: 制造业融资情况表
+  title: 支持重点行业
+- chapter_num: 十九、
+  level: 1
+  page: 556
+  subsections:
+  - chapter_num: S71
+    level: 2
+    page: 556
+    title: 银行业普惠金融重点领域贷款情况表
+  - chapter_num: S45
+    level: 2
+    page: 570
+    title: 农村合作金融机构支农服务情况统计表
+  - chapter_num: S63_I
+    level: 2
+    page: 575
+    title: 大中小微型企业贷款情况表
+  - chapter_num: S63_II
+    level: 2
+    page: 577
+    title: 大中小微型企业贷款按担保方式不良情况表
+  - chapter_num: S64_I
+    level: 2
+    page: 586
+    title: 大中小微型企业贷款分行业情况表
+  - chapter_num: S64_II
+    level: 2
+    page: 588
+    title: 大中小微型企业不良贷款分行业情况表
+  - chapter_num: S65_I
+    level: 2
+    page: 593
+    title: 大中小微型企业贷款分地区情况表
+  - chapter_num: S65_II
+    level: 2
+    page: 593
+    title: 大中小微型企业贷款不良贷款分地区情况表
+  - chapter_num: S66
+    level: 2
+    page: 597
+    title: 保障性安居工程贷款分地区情况表
+  title: 普惠金融
+- chapter_num: 二十、
+  level: 1
+  page: 599
+  subsections:
+  - chapter_num: S68
+    level: 2
+    page: 599
+    title: 绿色融资情况统计表
+  title: 绿色金融
+- chapter_num: 二十一、
+  level: 1
+  page: 639
+  subsections:
+  - chapter_num: S63_III
+    level: 2
+    page: 639
+    title: 各控股类型企业融资情况表
+  title: 贷款企业性质
+- chapter_num: 二十二、
+  level: 1
+  page: 648
+  subsections:
+  - chapter_num: S70_I
+    level: 2
+    page: 648
+    title: 科技金融基本情况表
+  - chapter_num: S70_II
+    level: 2
+    page: 650
+    title: 投贷联动基本情况表
+  title: 投贷联动
+confidence: 0.85
+document_id: report_1104_2022
+extraction_method: llm_analysis
+last_updated: '2025-07-22T16:42:43.731487'
+status: completed

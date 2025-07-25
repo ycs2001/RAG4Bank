@@ -1,0 +1,214 @@
+chapters:
+- chapter_num: 第一章
+  level: 1
+  page: null
+  subsections:
+  - chapter_num: 一、
+    level: 2
+    page: null
+    title: 制度建立与实施
+  - chapter_num: 二、
+    level: 2
+    page: null
+    subsections:
+    - chapter_num: (一)
+      level: 3
+      page: null
+      title: A3702 表单(中小金融机构存贷款日报)
+    title: 现行统计指标框架
+  - chapter_num: 三、
+    level: 2
+    page: null
+    title: 主要指标解释
+  title: 金融机构存贷款日报
+- chapter_num: 第二章
+  level: 1
+  page: null
+  subsections:
+  - chapter_num: 一、
+    level: 2
+    page: null
+    title: 制度建立与实施
+  - chapter_num: 二、
+    level: 2
+    page: null
+    title: 现行统计指标框架
+  title: 金融机构资产负债项目月报
+- chapter_num: 第三章
+  level: 1
+  page: null
+  title: 委托贷款专项统计月报
+- chapter_num: 第四章
+  level: 1
+  page: null
+  title: 贷款分行业专项统计月报
+- chapter_num: 第五章
+  level: 1
+  page: null
+  title: 房地产贷款存量统计月报
+- chapter_num: 第六章
+  level: 1
+  page: null
+  title: 个人住房贷款流量统计月报
+- chapter_num: 第七章
+  level: 1
+  page: null
+  title: 中长期贷款按实际投向统计月报
+- chapter_num: 第八章
+  level: 1
+  page: null
+  title: 代客理财统计月报
+- chapter_num: 第九章
+  level: 1
+  page: null
+  title: 信托投资公司资金信托统计月报
+- chapter_num: 第十章
+  level: 1
+  page: null
+  title: 汽车金融公司统计月报
+- chapter_num: 第十一章
+  level: 1
+  page: null
+  title: 大中小企业贷款统计月报
+- chapter_num: 第十二章
+  level: 1
+  page: null
+  title: 银行承兑汇票专项统计月报
+- chapter_num: 第十三章
+  level: 1
+  page: null
+  title: 商业银行一逾两呆统计月报
+- chapter_num: 第十四章
+  level: 1
+  page: null
+  title: 涉农贷款统计制度月(季)报
+- chapter_num: 第十五章
+  level: 1
+  page: null
+  title: 库存现金券别统计月报
+- chapter_num: 第十六章
+  level: 1
+  page: null
+  title: 贷款变动因素专项统计月报
+- chapter_num: 第十七章
+  level: 1
+  page: null
+  title: 银行业金融机构互联网金融业务统计月(季)报
+- chapter_num: 第十八章
+  level: 1
+  page: null
+  title: 金融机构主要财务指标调查月报
+- chapter_num: 第十九章
+  level: 1
+  page: null
+  title: 金融机构信贷发放情况专项统计月报
+- chapter_num: 第二十章
+  level: 1
+  page: null
+  title: 监管类指标统计季报
+- chapter_num: 第二十一章
+  level: 1
+  page: null
+  title: 中间业务统计季报
+- chapter_num: 第二十二章
+  level: 1
+  page: null
+  title: 个人住房及以房地产抵押的贷款统计季报
+- chapter_num: 第二十三章
+  level: 1
+  page: null
+  title: 本外币利润统计季(年)报
+- chapter_num: 第二十四章
+  level: 1
+  page: null
+  title: 贷款公司、小额贷款公司专项统计季报
+- chapter_num: 第二十五章
+  level: 1
+  page: null
+  title: 地方政府融资平台贷款专项统计季报
+- chapter_num: 第二十六章
+  level: 1
+  page: null
+  title: 农信社(农商行/农合行)专项统计季报
+- chapter_num: 第二十七章
+  level: 1
+  page: null
+  title: 表外业务专项统计季报
+- chapter_num: 第二十八章
+  level: 1
+  page: null
+  title: 保障性安居工程贷款统计季报
+- chapter_num: 第二十九章
+  level: 1
+  page: null
+  title: 助学贷款统计季报
+- chapter_num: 第三十章
+  level: 1
+  page: null
+  title: 创业担保贷款专项统计季报
+- chapter_num: 第三十一章
+  level: 1
+  page: null
+  title: '"两权"抵押贷款专项统计季报'
+- chapter_num: 第三十二章
+  level: 1
+  page: null
+  title: 金融精准扶贫贷款专项统计季报
+- chapter_num: 第三十三章
+  level: 1
+  page: null
+  title: 绿色贷款专项统计季报
+- chapter_num: 第三十四章
+  level: 1
+  page: null
+  title: 农村经济金融发展现状统计半年报
+- chapter_num: 第三十五章
+  level: 1
+  page: null
+  title: 普惠金融领域贷款专项统计季报
+- chapter_num: 第三十六章
+  level: 1
+  page: null
+  title: 人民银行资产负债统计月报
+- chapter_num: 第三十七章
+  level: 1
+  page: null
+  title: 理财与资金信托专项统计制度
+- chapter_num: 第三十八章
+  level: 1
+  page: null
+  title: 标准化存贷款综合抽样统计监测制度
+- chapter_num: 第三十九章
+  level: 1
+  page: null
+  title: 地区社会融资规模的定义和编制方案
+- chapter_num: 附：
+  level: 1
+  page: null
+  subsections:
+  - chapter_num: 1、
+    level: 2
+    page: null
+    title: 国民经济行业分类的原则、概念和有关说明
+  - chapter_num: 2、
+    level: 2
+    page: null
+    title: 国家统计局关于印发统计上大中小微型企业划分办法的通知
+  - chapter_num: 3、
+    level: 2
+    page: null
+    title: 统计单位划分及具体处理办法
+  - chapter_num: 4、
+    level: 2
+    page: null
+    title: 关于划分企业登记注册类型的规定
+  - chapter_num: 5、
+    level: 2
+    page: null
+    title: 公有和非公有控股经济分类标准
+  title: 国家统计相关分类标准及规定
+confidence: 0.85
+document_id: pboc_statistics
+extraction_method: llm_analysis
+last_updated: '2025-07-22T16:44:24.882199'
+status: completed

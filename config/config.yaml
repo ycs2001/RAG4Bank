@@ -1,0 +1,456 @@
+# RAG检索问答系统配置文件
+
+# 调试配置
+debug:
+  enabled: false  # 生产环境默认关闭
+  output_dir: "./debug_retrieval"
+  save_raw_chunks: true
+  save_context: true
+  save_llm_responses: true
+ 
+
+# 系统基本配置
+system:
+  name: "RAG智能问答系统"
+  version: "2.0.0"
+  description: "金融监管领域智能问答系统"
+  log_level: "INFO"
+  log_file: "logs/rag_system.log"
+
+# 向量检索配置
+retrieval:
+  # 检索策略：single_collection（单库）或 multi_collection（多库）
+  strategy: "multi_collection"
+
+  # 默认检索器类型
+  default_retriever: "chromadb"
+
+  # 检索参数
+  top_k: 20  # 每个库的检索数量（增加以获取更多相关内容用于重排）
+  similarity_threshold: 0.5  # 进一步提高相似度阈值，过滤边缘相关内容
+  max_context_length: 16000  # 增加上下文长度以避免截断
+
+  # 主题分类配置
+  topic_classification:
+    enabled: true
+    confidence_threshold: 0.3  # 降低阈值，提高分类成功率
+    fallback_to_global: false  # 禁用全局检索回退
+    max_collections: 3  # 最多同时检索的库数量
+
+    # 版本处理配置
+    version_handling:
+      enabled: true
+      default_strategy: "prefer_latest"  # prefer_latest | ask_user | include_all
+      ask_user_on_ambiguity: true
+
+      # 版本组配置（用于版本对比）
+      version_groups:
+        "1104报表":
+          collections: ["report_1104_2024", "report_1104_2022"]
+          latest: "report_1104_2024"
+          description: "银行业监管统计报表制度"
+        "EAST系统":
+          collections: ["east_data_structure", "east_metadata"]
+          latest: "east_data_structure"
+          description: "EAST监管数据报送系统"
+        "一表通系统":
+          collections: ["ybt_data_structure", "ybt_product_mapping"]
+          latest: "ybt_data_structure"
+          description: "一表通产品报送系统"
+
+      # 版本检测关键词
+      version_keywords:
+        explicit_version:
+          "2024": ["report_1104_2024"]
+          "2022": ["report_1104_2022"]
+          "最新": ["report_1104_2024"]
+          "新版": ["report_1104_2024"]
+          "旧版": ["report_1104_2022"]
+        comparison_keywords: ["对比", "比较", "差异", "区别", "变化", "相比"]
+        ambiguous_patterns: ["涉及.*表", "包含.*表", "哪些.*表", "报送表.*列表"]
+
+  # ChromaDB配置
+  chromadb:
+    db_path: "./data/chroma_db"
+    default_collection_name: "knowledge_base"  # 全局检索时使用
+    persist_directory: "./data/chroma_db"
+
+  # 嵌入模型配置
+  embedding:
+    model_path: "/Users/chongshenyang/Desktop/bge-large-zh-v1.5"
+    model_type: "bge"
+    device: "cpu"
+
+  # 文档集合配置
+  collections:
+    - name: "人民银行金融统计制度汇编"
+      collection_id: "pboc_statistics"
+      keywords: ["人行", "央行", "统计制度", "大集中", "人民银行", "金融统计"]
+      priority: 1
+      description: "人民银行金融统计制度相关文档"
+      version: "现行版"
+      version_display: "[人民银行统计制度]"
+      type: "统计制度"
+
+    - name: "1104报表_2024版"
+      collection_id: "report_1104_2024"
+      keywords: ["1104", "资本充足率", "报表", "2024", "最新版"]
+      priority: 1
+      description: "1104报表合辑2024版"
+      version: "2024版"
+      version_display: "[2024版]"
+      type: "监管报表"
+
+    - name: "1104报表_2022版"
+      collection_id: "report_1104_2022"
+      keywords: ["1104", "资本充足率", "报表", "2022", "旧版"]
+      priority: 2
+      description: "1104报表合辑2022版"
+      version: "2022版"
+      version_display: "[2022版]"
+      type: "监管报表"
+
+    - name: "EAST数据结构"
+      collection_id: "east_data_structure"
+      keywords: ["EAST", "数据结构", "数据报送", "报送系统"]
+      priority: 1
+      description: "EAST系统数据结构文档"
+      version: "现行版"
+      version_display: "[EAST数据结构]"
+      type: "数据结构"
+
+    - name: "EAST元数据说明"
+      collection_id: "east_metadata"
+      keywords: ["EAST", "元数据", "数据字典", "字段说明"]
+      priority: 1
+      description: "EAST系统元数据说明文档"
+      version: "现行版"
+      version_display: "[EAST元数据]"
+      type: "元数据"
+
+    - name: "一表通数据结构"
+      collection_id: "ybt_data_structure"
+      keywords: ["一表通", "产品", "数据结构", "产品制度"]
+      priority: 1
+      description: "一表通产品数据结构文档"
+      version: "现行版"
+      version_display: "[一表通数据结构]"
+      type: "数据结构"
+
+    - name: "一表通产品报送映射"
+      collection_id: "ybt_product_mapping"
+      keywords: ["一表通", "产品映射", "报送映射", "产品制度"]
+      priority: 1
+      description: "一表通产品报送映射文档"
+      version: "现行版"
+      version_display: "[一表通产品映射]"
+      type: "产品映射"
+
+
+
+# LLM配置
+llm:
+  # 默认LLM提供商
+  default_provider: "deepseek"
+
+  # DeepSeek配置
+  deepseek:
+    api_key: "sk-623bd97dfce848f597f3bb8abd6a84c9"
+    base_url: "https://api.deepseek.com"
+    model: "deepseek-chat"
+    max_tokens: 65535
+    temperature: 0
+    timeout: 1200
+
+# 重排器配置
+reranker:
+  enabled: true
+  type: "cross_encoder"
+
+  cross_encoder:
+    model_name: "cross-encoder/ms-marco-MiniLM-L-6-v2"
+    device: "cpu"  # 或 "cuda" 如果有GPU
+    max_length: 512
+    top_k: 10  # 重排后保留的文档数量
+
+  # Qwen配置（备用）
+  qwen:
+    api_key: "sk-56b4e9f2be454d6da51430e8153eeaa3"
+    base_url: "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation"
+    model: "qwen-turbo"  # qwen-turbo, qwen-plus, qwen-max
+    max_tokens: 8000
+    temperature: 0
+    top_p: 0.8
+    repetition_penalty: 1.1
+    timeout: null  # 不设置超时
+    
+  # 生成参数
+  generation:
+    max_retries: 3
+    retry_delay: 1.0
+    stream: false
+
+# 知识库配置
+knowledge_base:
+  # 数据路径
+  chunks_dir: "./data/processed_docs/chunks"
+  raw_docs_dir: "./data/KnowledgeBase"
+  
+  # 分块参数
+  chunk_size: 5000
+  chunk_overlap: 1000
+  
+  # 支持的文档类型
+  supported_formats:
+    - "pdf"
+    - "docx"
+    - "xlsx"
+    - "txt"
+    - "md"
+
+# 提示词模板配置
+prompts:
+  # 系统提示词
+  system_prompt: |
+    你是一个专业的金融监管领域智能助手，专门回答关于银行监管报表、EAST系统、人民银行统计制度等相关问题。
+
+    请基于提供的文档内容，准确、专业地回答用户的问题。特别注意版本信息的标注和处理。
+
+  # 用户查询模板
+  user_template: |
+    === 相关文档内容 ===
+    {context}
+
+    === 用户问题 ===
+    {query}
+
+    === 回答要求 ===
+    1. **严格相关性筛选**：只回答与用户问题直接相关的内容，忽略不相关的信息
+    2. **去重处理**：如果多个文档提到相同的表格或内容，只列举一次，不要重复
+    3. **精准匹配**：仔细分析用户问题的关键词，只包含真正相关的表格和信息
+    4. **版本标注**：如果文档来源于不同版本，请在答案中明确标注每个信息的版本来源
+    5. **简洁明了**：优先提供最相关的内容，避免冗长的列表
+    6. **质量优于数量**：宁可少而精，不要多而杂
+    7. 回答要专业、详细，适合金融监管从业人员阅读
+    8. **参考文档格式要求**：在回答末尾按以下格式注明参考的文档来源：
+       ```
+       ### 主要参考文档
+       - 文档名称1 [版本信息]
+       - 文档名称2 [版本信息]
+       ```
+       不要只写"文档1、文档2"这样的编号，要写具体的文档名称。
+
+    **特别注意**：
+    - 如果用户问的是"普惠金融领域贷款"，只包含与普惠金融直接相关的表格
+    - 如果用户问的是特定主题，严格按照该主题筛选内容
+    - 不要为了显示更多信息而包含边缘相关或不相关的内容
+    - 参考文档部分必须写具体的文档名称，不能只写编号
+
+    请开始回答：
+
+  # 主题分类LLM模板（简化版）
+  topic_classification_template: |
+    分析用户查询，选择最相关的文档集合。
+
+    可用集合：
+    {collections_info}
+
+    用户查询："{query}"
+
+    请返回JSON格式：
+    {{
+        "collections": ["最相关的集合ID"],
+        "confidence": 0.85,
+        "reasoning": "选择理由"
+    }}
+
+    规则：
+    1. 最多选择2个最相关的集合
+    2. confidence范围0.0-1.0
+    3. 如果不确定，confidence设为0.5以下
+    4. 优先选择最新版本（2024版优于2022版）
+
+  # 版本澄清模板
+  version_clarification_template: |
+    🤔 您的问题涉及多个版本的文档，为了提供更准确的答案，请明确您需要的版本：
+
+    📋 可用版本：
+    {available_versions}
+
+    💡 您可以：
+    - 回复数字选择特定版本
+    - 说"对比所有版本"查看版本差异
+    - 说"最新版本"使用最新版本
+    - 重新提问并明确版本要求
+
+    请告诉我您的选择：
+
+# API服务配置
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+  cors_enabled: true
+  rate_limit:
+    enabled: true
+    requests_per_minute: 60
+
+# 性能监控配置
+monitoring:
+  enabled: true
+  metrics_file: "logs/metrics.json"
+  log_queries: true
+  log_responses: false  # 不记录完整回答内容，保护隐私
+
+# 缓存配置
+cache:
+  enabled: true
+  type: "memory"  # memory, redis
+  ttl: 3600  # 缓存时间（秒）
+  max_size: 1000  # 最大缓存条目数
+
+# 安全配置
+security:
+  api_key_required: false
+  allowed_origins:
+    - "http://localhost:3000"
+    - "http://127.0.0.1:3000"
+  max_query_length: 1000
+
+# 开发配置
+development:
+  debug_mode: false
+  verbose_logging: false
+  profile_performance: false
+
+# 文档预处理配置
+documents:
+  preprocessing:
+    enabled: true
+    grobid_url: "http://localhost:8070"  # GROBID Docker服务地址
+    grobid_timeout: 300  # GROBID请求超时时间（秒）
+    ocr_pages_limit: 30  # 分析文档前k页（增加以获取完整目录）
+    toc_extraction_enabled: true
+    toc_confidence_threshold: 0.8  # 目录识别置信度阈值
+
+  # 文档目录结构（TOC - Table of Contents）
+  toc:
+    report_1104_2024:
+      title: "银行业监管统计报表制度2024版"
+      file_path: "data/KnowledgeBase/1104报表合辑【2024版】.docx"
+      extraction_status: "pending"  # pending | completed | failed
+      last_updated: null
+      chapters: []  # 将通过预处理自动填充
+
+    report_1104_2022:
+      title: "银行业监管统计报表制度2022版"
+      file_path: "data/KnowledgeBase/1104报表合辑【2022版】.docx"
+      extraction_status: "pending"
+      last_updated: null
+      chapters: []
+
+    pboc_statistics:
+      title: "人民银行金融统计制度汇编"
+      file_path: "data/KnowledgeBase/人民银行金融统计制度汇编.pdf"
+      extraction_status: "pending"
+      last_updated: null
+      chapters: []
+
+    east_data_structure:
+      title: "EAST系统数据结构说明"
+      file_path: "data/KnowledgeBase/EAST数据结构.xlsx"
+      extraction_status: "pending"
+      last_updated: null
+      chapters: []
+
+# 语义增强检索配置
+semantic_enhancement:
+  enabled: true
+  toc_based_expansion: true  # 基于目录的查询扩展
+  keyword_expansion_limit: 5  # 最多扩展的关键词数量
+  semantic_similarity_threshold: 0.7  # 语义相似度阈值
+
+  # 查询意图分析配置
+  intent_analysis:
+    enabled: true
+    use_toc_context: true  # 使用目录上下文进行意图分析
+    collection_selection_strategy: "toc_guided"  # toc_guided | similarity_based | hybrid
+
+  # 目录分析LLM模板
+  toc_analysis_prompt: |
+    请分析以下文档文本，智能提取其目录结构。
+
+    文档ID: {document_id}
+    文档文本（前{max_pages}页）:
+    {text_content}
+
+    请仔细分析文本内容，识别文档的目录结构。注意：
+    1. 寻找"目录"、"CONTENTS"等标识
+    2. 识别章节标题、编号和页码
+    3. 分析层级关系（章、节、小节等）
+    4. 提取准确的标题文本
+
+    请按以下JSON格式返回目录结构：
+    {{
+        "status": "completed",
+        "extraction_method": "llm_analysis",
+        "confidence": 0.85,
+        "chapters": [
+            {{
+                "chapter_num": "第一章",
+                "title": "总则",
+                "page": 1,
+                "level": 1,
+                "subsections": [
+                    {{
+                        "chapter_num": "1.1",
+                        "title": "适用范围",
+                        "page": 3,
+                        "level": 2
+                    }}
+                ]
+            }}
+        ]
+    }}
+
+    要求：
+    1. 如果没有明显目录结构，返回空的chapters数组
+    2. confidence表示识别置信度（0.0-1.0）
+    3. level表示层级：1=章，2=节，3=小节
+    4. 只返回JSON，不要其他文字
+    5. 尽量准确提取页码信息
+
+  # 查询意图分析LLM模板
+  intent_analysis_prompt: |
+    请分析用户查询的意图，并基于可用的文档目录结构提供智能分析。
+
+    用户查询: {query}
+
+    {toc_context}
+
+    请深入分析用户查询的意图，包括：
+    1. 查询的核心目的和需求
+    2. 涉及的业务领域和主题
+    3. 可能需要的文档类型
+    4. 关键概念和专业术语
+    5. 查询的复杂度和范围
+
+    请按以下JSON格式返回分析结果：
+    {{
+        "intent": "查询意图的详细描述",
+        "confidence": 0.85,
+        "topics": ["普惠金融", "小微企业", "贷款统计"],
+        "concepts": ["报送表", "统计指标", "监管要求"],
+        "document_types": ["统计报表", "制度文件", "操作指南"],
+        "complexity": "simple|medium|complex",
+        "scope": "specific|broad|comprehensive"
+    }}
+
+    分析要求：
+    1. confidence表示分析置信度（0.0-1.0）
+    2. topics列出最多5个相关主题领域
+    3. concepts列出查询中的关键概念
+    4. document_types指出可能相关的文档类型
+    5. complexity评估查询复杂度
+    6. scope评估查询范围
+    7. 只返回JSON格式，不要其他说明文字
