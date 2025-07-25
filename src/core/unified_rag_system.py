@@ -32,7 +32,7 @@ class TopicClassifier:
         self.logger = logging.getLogger(__name__)
         
         # 加载集合配置
-        self.collections_config = config_manager.get('retrieval.collections', [])
+        self.collections_config = config_manager.get('embedding.collections', [])
         
         # 构建关键词映射
         self.keyword_mapping = {}
@@ -106,7 +106,9 @@ class TopicClassifier:
         # 关键词匹配（作为补充）
         for collection_id, keywords in self.keyword_mapping.items():
             for keyword in keywords:
-                if keyword.lower() in query_lower:
+                # 确保关键词是字符串类型
+                keyword_str = str(keyword).lower() if keyword is not None else ""
+                if keyword_str and keyword_str in query_lower:
                     if collection_id not in matched_collections:
                         matched_collections.append(collection_id)
                     break
@@ -184,7 +186,9 @@ class UnifiedRAGSystem:
         self.llm = DeepSeekLLM(deepseek_config)
         
         # 3. 初始化检索器
-        retrieval_config = self.config_manager.get_section('retrieval')
+        retrieval_config = self.config_manager.get('retrieval', {})
+        # 添加集合配置
+        retrieval_config['collections'] = self.config_manager.get('embedding.collections', [])
         self.retriever = ChromaDBRetriever(retrieval_config)
         
         # 4. 初始化主题分类器
@@ -215,7 +219,7 @@ class UnifiedRAGSystem:
             raise ValueError(f"ChromaDB数据库不存在: {db_path}")
         
         # 检查集合配置
-        collections = self.config_manager.get('retrieval.collections', [])
+        collections = self.config_manager.get('embedding.collections', [])
         if not collections:
             raise ValueError("未配置任何文档集合")
     
@@ -283,23 +287,35 @@ class UnifiedRAGSystem:
         context_parts = []
         total_length = 0
         max_total_length = 50000  # 简单的总长度限制，避免API错误
+        max_single_doc_length = 20000  # 单个文档的最大长度
 
         # 使用检索到的文档，但控制总长度
         for i, result in enumerate(retrieval_results):
             # 优先使用原文档名称，回退到集合ID
             source_doc = result.metadata.get('source_document', result.metadata.get('collection_id', '未知'))
+
+            # 截断过长的文档内容
+            content = result.content
+            if len(content) > max_single_doc_length:
+                content = content[:max_single_doc_length] + "...[内容已截断]"
+
             doc_text = (
                 f"文档{i+1} (来源: {source_doc}, 相似度: {result.score:.3f}):\n"
-                f"{result.content}\n"
+                f"{content}\n"
             )
 
             # 检查是否会超过长度限制
-            if total_length + len(doc_text) > max_total_length:
+            if total_length + len(doc_text) > max_total_length and len(context_parts) > 0:
                 self.logger.info(f"📏 达到长度限制，使用前{i}个文档")
                 break
 
             context_parts.append(doc_text)
             total_length += len(doc_text)
+
+            # 确保至少包含一个文档
+            if i == 0 and len(doc_text) > max_total_length:
+                self.logger.info(f"📏 第一个文档过长({len(doc_text)}字符)，已截断")
+                break
 
         context = "\n".join(context_parts)
         self.logger.info(f"📝 构建上下文: {len(context_parts)}个文档, 总长度{len(context)}字符")
@@ -307,7 +323,29 @@ class UnifiedRAGSystem:
     
     def _generate_answer(self, question: str, context: str) -> str:
         """生成答案"""
-        prompt = f"""
+        try:
+            # 🔄 使用Prompt管理器获取问答模板
+            from ..config.prompt_manager import PromptManager
+
+            prompt_manager = PromptManager()
+            prompt = prompt_manager.get_qa_prompt(
+                user_question=question,
+                retrieved_content=context,
+                multi_document=len(context.split("来源:")) > 2  # 简单判断是否多文档
+            )
+
+            response = self.llm.generate(
+                prompt,
+                max_tokens=2000,
+                temperature=0
+            )
+            return response.strip()
+
+        except Exception as e:
+            # 如果Prompt管理器失败，使用回退Prompt
+            self.logger.warning(f"Prompt管理器失败，使用回退Prompt: {e}")
+
+            fallback_prompt = f"""
 基于以下文档内容，回答用户问题。请确保答案准确、专业，并引用具体的文档名称和条款。
 
 问题: {question}
@@ -317,25 +355,22 @@ class UnifiedRAGSystem:
 
 要求:
 1. 基于提供的文档内容回答
-2. 引用信息时必须使用文档的原始名称（如"根据《1104报表合辑【2022版】.docx》"、"根据《EAST数据结构.xlsx》"等），这些名称在每个文档片段的"来源"字段中提供
-3. 不要使用"文档1"、"文档2"等模糊表述，而要使用具体的原文档名称
-4. 如果涉及报表，请列出具体的表格编号（如G01、S71等）
-5. 如果涉及监管要求，请引用具体条款和文档来源
-6. 答案要简洁明了，重点突出
-7. 如果文档内容不足以回答问题，请明确说明
+2. 引用信息时必须使用文档的原始名称
+3. 答案要简洁明了，重点突出
+4. 如果文档内容不足以回答问题，请明确说明
 
 答案:
 """
 
-        try:
-            response = self.llm.generate(
-                prompt, 
-                max_tokens=2000, 
-                temperature=0
-            )
-            return response.strip()
-        except Exception as e:
-            raise RuntimeError(f"答案生成失败: {e}")
+            try:
+                response = self.llm.generate(
+                    fallback_prompt,
+                    max_tokens=2000,
+                    temperature=0
+                )
+                return response.strip()
+            except Exception as e:
+                raise RuntimeError(f"答案生成失败: {e}")
 
     def _enhance_query(self, question: str) -> Dict[str, Any]:
         """简单的查询改写 - 三步走"""

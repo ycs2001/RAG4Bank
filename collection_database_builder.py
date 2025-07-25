@@ -13,7 +13,7 @@ from typing import Dict, List, Any
 # 添加src目录到Python路径
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
-from src.config import ConfigManager
+from src.config.enhanced_config_manager import EnhancedConfigManager
 from src.retrievers import ChromaDBRetriever
 
 # 设置日志
@@ -28,7 +28,7 @@ class CollectionDatabaseBuilder:
     
     def __init__(self):
         """初始化构建器"""
-        self.config_manager = ConfigManager()
+        self.config_manager = EnhancedConfigManager()
         self.retriever = None
         
         # 文档到集合的映射规则
@@ -41,7 +41,10 @@ class CollectionDatabaseBuilder:
             'EAST自营资金报送范围': 'east_data_structure',
             'EAST表结构': 'east_data_structure',
             '一表通数据结构': 'ybt_data_structure',
-            '一表通产品报送映射': 'ybt_product_mapping'
+            '一表通产品报送映射': 'ybt_product_mapping',
+            'XX银行鑫悦结构性存款产品管理办法（试行）': 'bank_product_management',
+            '白皮书参考': 'regulatory_reference',
+            '监管口径答疑文档_v1.0': 'regulatory_qa_guidance'
         }
         
     def build(self):
@@ -124,13 +127,17 @@ class CollectionDatabaseBuilder:
         """初始化检索器"""
         logger.info("🔧 初始化多集合检索器...")
         
-        # 构建检索器配置
+        # 构建检索器配置（使用正确的嵌套结构）
         retriever_config = {
-            'db_path': self.config_manager.get('retrieval.chromadb.db_path', './data/chroma_db'),
-            'default_collection_name': self.config_manager.get('retrieval.chromadb.default_collection_name', 'knowledge_base'),
-            'model_path': self.config_manager.get('retrieval.embedding.model_path'),
-            'normalize_embeddings': self.config_manager.get('retrieval.embedding.normalize_embeddings', True),
-            'collections': self.config_manager.get('retrieval.collections', [])
+            'chromadb': {
+                'db_path': self.config_manager.get('retrieval.chromadb.db_path', './data/chroma_db'),
+                'default_collection_name': self.config_manager.get('retrieval.chromadb.default_collection_name', 'knowledge_base')
+            },
+            'embedding': {
+                'model_path': self.config_manager.get('retrieval.embedding.model_path'),
+                'normalize_embeddings': self.config_manager.get('retrieval.embedding.normalize_embeddings', True)
+            },
+            'collections': self.config_manager.get('embedding.collections', [])
         }
         
         self.retriever = ChromaDBRetriever(retriever_config)

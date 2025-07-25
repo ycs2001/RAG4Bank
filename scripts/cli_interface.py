@@ -13,7 +13,7 @@ from pathlib import Path
 project_root = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, project_root)
 
-from src.config import ConfigManager
+from src.config.enhanced_config_manager import EnhancedConfigManager
 from src.core.unified_rag_system import UnifiedRAGSystem
 import logging
 
@@ -60,7 +60,7 @@ def main():
         setup_logging(args.log_level, args.log_file)
         
         # 加载配置
-        config_manager = ConfigManager()
+        config_manager = EnhancedConfigManager()
         if args.config:
             config_manager.load_config(args.config)
         

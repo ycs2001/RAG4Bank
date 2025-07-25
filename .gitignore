@@ -1,0 +1,211 @@
+# CategoryRAG项目 .gitignore
+
+# ==================== Python ====================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# ==================== CategoryRAG特定文件 ====================
+
+# AI模型文件（太大，不上传）
+bge-large-zh-v1.5/
+*.bin
+*.safetensors
+*.onnx
+*.pt
+*.pth
+*.h5
+*.pkl
+*.joblib
+
+# 数据库文件
+data/chroma_db/
+data/processed_docs/
+*.db
+*.sqlite
+*.sqlite3
+
+# 知识库文档（可能包含敏感信息）
+data/KnowledgeBase/
+KnowledgeBase/
+documents/
+*.pdf
+*.docx
+*.doc
+*.xlsx
+*.xls
+
+# 日志文件
+logs/
+*.log
+*.log.*
+
+# 配置文件中的敏感信息
+config/config.yaml
+config/api_keys.yaml
+.env.local
+.env.production
+
+# 临时文件
+temp/
+tmp/
+cache/
+.cache/
+
+# 测试输出
+test_output/
+output/
+
+# IDE和编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# ==================== 保留的示例文件 ====================
+# 保留示例配置文件
+!config/unified_config.yaml.example
+!config/config.yaml.example
+
+# 保留示例文档
+!data/KnowledgeBase/README.md
+!data/KnowledgeBase/examples/
+
+# 保留重要的README和文档
+!README.md
+!docs/
+!*.md

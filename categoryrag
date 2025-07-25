@@ -1,0 +1,242 @@
+#!/usr/bin/env python3
+"""
+CategoryRAG 统一命令行工具
+提供简化的文档管理和系统操作接口
+"""
+
+import os
+import sys
+import argparse
+import logging
+from pathlib import Path
+
+# 添加项目根目录到Python路径
+project_root = Path(__file__).parent
+sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root / 'src'))
+
+def setup_logging(level="INFO"):
+    """设置日志"""
+    logging.basicConfig(
+        level=getattr(logging, level.upper()),
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[logging.StreamHandler(sys.stdout)]
+    )
+
+def main():
+    """主函数"""
+    parser = argparse.ArgumentParser(
+        prog='categoryrag',
+        description='CategoryRAG 统一命令行工具',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+示例用法:
+  categoryrag init                          # 初始化系统
+  categoryrag add document.pdf              # 添加文档
+  categoryrag add docs/ --batch             # 批量添加
+  categoryrag add doc.pdf --incremental     # 增量添加
+  categoryrag remove document.pdf           # 删除文档
+  categoryrag remove --interactive          # 交互式删除
+  categoryrag clean --all                   # 清理所有数据
+  categoryrag rebuild --from-scratch        # 完全重建
+  categoryrag start                         # 启动系统
+  categoryrag status                        # 查看状态
+  categoryrag doctor                        # 系统检查
+        """
+    )
+    
+    # 全局选项
+    parser.add_argument('--config', '-c', help='配置文件路径', default='config')
+    parser.add_argument('--env', '-e', help='环境 (dev/prod/test)', default='development')
+    parser.add_argument('--verbose', '-v', action='store_true', help='详细输出')
+    parser.add_argument('--quiet', '-q', action='store_true', help='静默模式')
+    
+    # 子命令
+    subparsers = parser.add_subparsers(dest='command', help='可用命令')
+
+    # init 命令
+    init_parser = subparsers.add_parser('init', help='初始化系统和配置')
+    init_parser.add_argument('--wizard', action='store_true', help='使用配置向导')
+    init_parser.add_argument('--force', action='store_true', help='强制重新初始化')
+
+    # add 命令
+    add_parser = subparsers.add_parser('add', help='添加文档到知识库')
+    add_parser.add_argument('path', nargs='?', help='文档路径或目录')
+    add_parser.add_argument('--collection', help='集合名称')
+    add_parser.add_argument('--keywords', help='关键词，用逗号分隔')
+    add_parser.add_argument('--batch', action='store_true', help='批量处理模式')
+    add_parser.add_argument('--interactive', '-i', action='store_true', help='交互式模式')
+    add_parser.add_argument('--preview', action='store_true', help='预览不执行')
+    add_parser.add_argument('--auto-keywords', action='store_true', help='自动生成关键词')
+    add_parser.add_argument('--incremental', action='store_true', help='增量处理模式')
+    add_parser.add_argument('--force', action='store_true', help='强制覆盖现有文档')
+
+    # remove 命令
+    remove_parser = subparsers.add_parser('remove', help='删除文档')
+    remove_parser.add_argument('path', nargs='?', help='文档路径或名称')
+    remove_parser.add_argument('--document', help='文档名称')
+    remove_parser.add_argument('--collection', help='集合名称')
+    remove_parser.add_argument('--interactive', '-i', action='store_true', help='交互式删除')
+    remove_parser.add_argument('--list', action='store_true', help='列出所有文档')
+    remove_parser.add_argument('--force', action='store_true', help='强制删除不确认')
+
+    # clean 命令
+    clean_parser = subparsers.add_parser('clean', help='清理数据')
+    clean_parser.add_argument('--all', action='store_true', help='清理所有数据')
+    clean_parser.add_argument('--chunks', action='store_true', help='仅清理分块文件')
+    clean_parser.add_argument('--vectors', action='store_true', help='仅清理向量数据')
+    clean_parser.add_argument('--temp', action='store_true', help='清理临时文件')
+    clean_parser.add_argument('--force', action='store_true', help='强制清理不确认')
+
+    # rebuild 命令
+    rebuild_parser = subparsers.add_parser('rebuild', help='重建系统')
+    rebuild_parser.add_argument('--from-scratch', action='store_true', help='从原始文档完全重建')
+    rebuild_parser.add_argument('--incremental', action='store_true', help='增量重建')
+    rebuild_parser.add_argument('--vectors-only', action='store_true', help='仅重建向量数据库')
+    rebuild_parser.add_argument('--force', action='store_true', help='强制重建不确认')
+    
+    # start 命令
+    start_parser = subparsers.add_parser('start', help='启动CategoryRAG服务')
+    start_parser.add_argument('--check-deps', action='store_true', help='启动前检查依赖')
+    start_parser.add_argument('--auto-fix', action='store_true', help='自动修复问题')
+    start_parser.add_argument('--background', action='store_true', help='后台运行')
+    start_parser.add_argument('--web', action='store_true', help='启动Web界面')
+
+    # web 命令
+    web_parser = subparsers.add_parser('web', help='Web服务管理')
+    web_parser.add_argument('action', choices=['start', 'test'], help='Web服务操作')
+    web_parser.add_argument('--host', default='127.0.0.1', help='服务器地址')
+    web_parser.add_argument('--port', type=int, default=5000, help='服务器端口')
+    web_parser.add_argument('--debug', action='store_true', help='调试模式')
+
+    # status 命令
+    status_parser = subparsers.add_parser('status', help='查看系统状态')
+    status_parser.add_argument('--detailed', action='store_true', help='详细状态')
+    status_parser.add_argument('--json', action='store_true', help='JSON格式输出')
+    
+    # config 命令
+    config_parser = subparsers.add_parser('config', help='配置管理')
+    config_subparsers = config_parser.add_subparsers(dest='config_action')
+    config_subparsers.add_parser('show', help='显示当前配置')
+    config_subparsers.add_parser('validate', help='验证配置')
+    config_subparsers.add_parser('edit', help='编辑配置')
+    config_subparsers.add_parser('reset', help='重置为默认配置')
+    
+    # doctor 命令
+    doctor_parser = subparsers.add_parser('doctor', help='系统健康检查')
+    doctor_parser.add_argument('--fix', action='store_true', help='自动修复问题')
+    doctor_parser.add_argument('--report', action='store_true', help='生成健康报告')
+    
+    # batch 命令
+    batch_parser = subparsers.add_parser('batch', help='批量操作')
+    batch_subparsers = batch_parser.add_subparsers(dest='batch_action')
+    batch_add_parser = batch_subparsers.add_parser('add', help='批量添加文档')
+    batch_add_parser.add_argument('directory', help='文档目录')
+    batch_add_parser.add_argument('--filter', help='文件过滤器，如 "*.pdf"')
+    batch_add_parser.add_argument('--parallel', type=int, default=4, help='并行处理数')
+    
+    # db 命令
+    db_parser = subparsers.add_parser('db', help='数据库操作')
+    db_subparsers = db_parser.add_subparsers(dest='db_action')
+    db_subparsers.add_parser('rebuild', help='重建数据库')
+    db_subparsers.add_parser('backup', help='备份数据库')
+    db_restore_parser = db_subparsers.add_parser('restore', help='恢复数据库')
+    db_restore_parser.add_argument('backup_file', help='备份文件路径')
+    
+    # 解析参数
+    args = parser.parse_args()
+    
+    # 设置日志级别
+    if args.quiet:
+        log_level = "ERROR"
+    elif args.verbose:
+        log_level = "DEBUG"
+    else:
+        log_level = "INFO"
+    
+    setup_logging(log_level)
+    
+    # 如果没有指定命令，显示帮助
+    if not args.command:
+        parser.print_help()
+        return
+    
+    # 执行命令
+    try:
+        if args.command == 'init':
+            from src.cli.commands.init_command import InitCommand
+            cmd = InitCommand(args)
+            cmd.execute()
+        
+        elif args.command == 'add':
+            from src.cli.commands.add_command import AddCommand
+            cmd = AddCommand(args)
+            cmd.execute()
+        
+        elif args.command == 'start':
+            from src.cli.commands.start_command import StartCommand
+            cmd = StartCommand(args)
+            cmd.execute()
+
+        elif args.command == 'web':
+            from src.cli.commands.web_command import WebCommand
+            cmd = WebCommand(args)
+            cmd.execute()
+
+        elif args.command == 'status':
+            from src.cli.commands.status_command import StatusCommand
+            cmd = StatusCommand(args)
+            cmd.execute()
+        
+        elif args.command == 'config':
+            from src.cli.commands.config_command import ConfigCommand
+            cmd = ConfigCommand(args)
+            cmd.execute()
+        
+        elif args.command == 'doctor':
+            from src.cli.commands.doctor_command import DoctorCommand
+            cmd = DoctorCommand(args)
+            cmd.execute()
+        
+        elif args.command == 'batch':
+            from src.cli.commands.batch_command import BatchCommand
+            cmd = BatchCommand(args)
+            cmd.execute()
+        
+        elif args.command == 'remove':
+            from src.cli.commands.remove_command import RemoveCommand
+            cmd = RemoveCommand(args)
+            cmd.execute()
+
+        elif args.command == 'clean':
+            from src.cli.commands.clean_command import CleanCommand
+            cmd = CleanCommand(args)
+            cmd.execute()
+
+        elif args.command == 'rebuild':
+            from src.cli.commands.rebuild_command import RebuildCommand
+            cmd = RebuildCommand(args)
+            cmd.execute()
+
+        elif args.command == 'db':
+            from src.cli.commands.db_command import DbCommand
+            cmd = DbCommand(args)
+            cmd.execute()
+
+        else:
+            print(f"❌ 未知命令: {args.command}")
+            parser.print_help()
+            sys.exit(1)
+    
+    except KeyboardInterrupt:
+        print("\n⚠️ 操作被用户中断")
+        sys.exit(1)
+    except Exception as e:
+        logging.error(f"❌ 命令执行失败: {e}")
+        if args.verbose:
+            import traceback
+            traceback.print_exc()
+        sys.exit(1)
+
+if __name__ == '__main__':
+    main()

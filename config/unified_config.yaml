@@ -1,0 +1,239 @@
+# CategoryRAG统一配置文件
+# 系统基础配置
+system:
+  name: "CategoryRAG"
+  version: "1.0.0"
+  environment: "development"
+  debug: false
+
+# 数据存储配置
+data:
+  chroma_db_dir: "./data/chroma_db"
+  processed_docs_dir: "./data/processed_docs"
+  knowledge_base_dir: "./data/KnowledgeBase"
+
+# 嵌入模型配置
+embedding:
+  model:
+    provider: "sentence_transformers"
+    path: "./bge-large-zh-v1.5"
+    name: "bge-large-zh-v1.5"
+
+  # 文档集合配置
+  collections:
+    - name: 人民银行金融统计制度汇编
+      collection_id: pboc_statistics
+      keywords:
+        - 人民银行
+        - 央行
+        - 金融统计
+        - 统计制度
+        - 金融机构
+      priority: 1
+      description: 人民银行金融统计制度相关文档
+      version: 现行版
+      version_display: '[人行统计]'
+      type: 统计制度
+
+    - name: 1104报表_2024版
+      collection_id: report_1104_2024
+      keywords:
+        - "1104"
+        - 银行业监管统计
+        - 报表制度
+        - "2024"
+        - 监管报表
+      priority: 1
+      description: 银行业监管统计报表制度2024版
+      version: 2024版
+      version_display: '[1104-2024]'
+      type: 监管报表
+
+    - name: 1104报表_2022版
+      collection_id: report_1104_2022
+      keywords:
+        - "1104"
+        - 银行业监管统计
+        - 报表制度
+        - "2022"
+        - 监管报表
+      priority: 2
+      description: 银行业监管统计报表制度2022版
+      version: 2022版
+      version_display: '[1104-2022]'
+      type: 监管报表
+
+    - name: EAST数据结构
+      collection_id: east_data_structure
+      keywords:
+        - EAST
+        - 数据结构
+        - 监管数据
+        - 报送系统
+        - 数据标准
+      priority: 1
+      description: EAST监管数据报送系统数据结构文档
+      version: 现行版
+      version_display: '[EAST]'
+      type: 数据报送
+
+    - name: EAST元数据说明
+      collection_id: east_metadata
+      keywords:
+        - EAST
+        - 元数据
+        - 数据字典
+        - 字段说明
+      priority: 2
+      description: EAST系统元数据和字段说明文档
+      version: 现行版
+      version_display: '[EAST元数据]'
+      type: 数据报送
+
+    - name: 一表通数据结构
+      collection_id: ybt_data_structure
+      keywords:
+        - 一表通
+        - 产品报送
+        - 数据结构
+        - 产品制度
+      priority: 1
+      description: 一表通产品报送数据结构文档
+      version: 现行版
+      version_display: '[一表通]'
+      type: 产品报送
+
+    - name: 一表通产品报送映射
+      collection_id: ybt_product_mapping
+      keywords:
+        - 一表通
+        - 产品映射
+        - 报送映射
+        - 产品制度
+      priority: 2
+      description: 一表通产品报送映射关系文档
+      version: 现行版
+      version_display: '[一表通映射]'
+      type: 产品报送
+
+    - name: 银行产品管理办法
+      collection_id: bank_product_management
+      keywords:
+        - 银行产品
+        - 产品管理
+        - 管理办法
+        - 风险管理
+        - 结构性存款
+      priority: 2
+      description: 银行产品管理制度相关文档
+      version: 试行版
+      version_display: '[产品管理]'
+      type: 产品管理
+
+    - name: 监管参考资料
+      collection_id: regulatory_reference
+      keywords:
+        - 白皮书
+        - 监管参考
+        - 政策解读
+        - 行业指导
+        - 参考资料
+      priority: 2
+      description: 监管政策参考资料和白皮书
+      version: 现行版
+      version_display: '[监管参考]'
+      type: 参考资料
+
+    - name: 监管口径答疑
+      collection_id: regulatory_qa_guidance
+      keywords:
+        - 监管口径
+        - 答疑
+        - 口径解释
+        - 监管问答
+        - 填报指导
+        - 业务口径
+      priority: 1
+      description: 监管口径答疑和填报指导文档
+      version: v1.0
+      version_display: '[监管答疑]'
+      type: 答疑指导
+
+# LLM配置
+llm:
+  # 默认LLM提供商
+  default_provider: "deepseek"
+
+  # 主要LLM配置
+  primary:
+    provider: "deepseek"
+    model: "deepseek-chat"
+    api_key: "sk-623bd97dfce848f597f3bb8abd6a84c9"
+    base_url: "https://api.deepseek.com"
+    max_tokens: 4000
+    temperature: 0.1
+
+  # DeepSeek配置
+  deepseek:
+    api_key: "sk-623bd97dfce848f597f3bb8abd6a84c9"
+    base_url: "https://api.deepseek.com"
+    model: "deepseek-chat"
+    max_tokens: 4000
+    temperature: 0.1
+    timeout: 1200
+
+  # Qwen配置（备用）
+  qwen:
+    api_key: "sk-56b4e9f2be454d6da51430e8153eeaa3"
+    base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    model: "qwen-turbo"
+    max_tokens: 4000
+    temperature: 0.1
+
+# 检索配置
+retrieval:
+  # 检索策略：single_collection（单库）或 multi_collection（多库）
+  strategy: "multi_collection"
+
+  # 默认检索器类型
+  default_retriever: "chromadb"
+
+  # 检索参数
+  top_k: 30
+  similarity_threshold: 0.5
+  max_context_length: 50000
+
+  # 主题分类配置
+  topic_classification:
+    enabled: true
+    confidence_threshold: 0.3
+    fallback_to_global: false
+    max_collections: 3
+
+  # 嵌入模型配置
+  embedding:
+    model_path: "./bge-large-zh-v1.5"
+    model_name: "bge-large-zh-v1.5"
+    device: "cpu"
+
+  # ChromaDB配置
+  chromadb:
+    db_path: "./data/chroma_db"
+    collection_metadata:
+      hnsw:space: "cosine"
+
+# 重排器配置
+reranker:
+  enabled: true
+  type: "cross_encoder"
+  cross_encoder:
+    enabled: true
+    model: "cross-encoder/ms-marco-MiniLM-L-6-v2"
+    top_k: 20
+    batch_size: 32
+
+# 日志配置
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "./logs/categoryrag.log"

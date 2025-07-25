@@ -1,0 +1,133 @@
+version: '1.0'
+created_at: '2025-07-24T16:25:18.601027'
+document_registry:
+  白皮书参考:
+    original_path: data/KnowledgeBase/白皮书参考.xlsx
+    collection_id: default_collection
+    collection_name: 测试集合
+    keywords:
+    - 测试
+    - 真实处理
+    added_at: '2025-07-24T20:09:33.457073'
+    file_size: 210982
+    file_type: .xlsx
+  人民银行金融统计制度汇编:
+    original_path: data/KnowledgeBase/人民银行金融统计制度汇编.pdf
+    collection_id: default_collection
+    collection_name: 人民银行统计制度
+    keywords:
+    - 人民银行
+    - 金融统计
+    - 统计制度
+    - 央行
+    added_at: '2025-07-24T20:33:10.743560'
+    file_size: 2124675
+    file_type: .pdf
+  1104报表合辑【2022版】:
+    original_path: data/KnowledgeBase/1104报表合辑【2022版】.docx
+    collection_id: '1104_2022'
+    collection_name: 1104报表_2022版
+    keywords:
+    - '1104'
+    - '2022'
+    - 银行业监管统计
+    - 报表制度
+    - 旧版
+    added_at: '2025-07-24T20:38:46.290233'
+    file_size: 3016495
+    file_type: .docx
+  1104报表合辑【2024版】:
+    original_path: data/KnowledgeBase/1104报表合辑【2024版】.docx
+    collection_id: '1104_2024'
+    collection_name: 1104报表_2024版
+    keywords:
+    - '1104'
+    - '2024'
+    - 银行业监管统计
+    - 报表制度
+    - 新版
+    added_at: '2025-07-24T20:39:09.993184'
+    file_size: 3434209
+    file_type: .docx
+  XX银行鑫悦结构性存款产品管理办法（试行）:
+    original_path: data/KnowledgeBase/XX银行鑫悦结构性存款产品管理办法（试行）.docx
+    collection_id: default_collection
+    collection_name: 银行产品管理办法
+    keywords:
+    - 银行
+    - 产品管理
+    - 存款
+    - 管理办法
+    added_at: '2025-07-24T20:39:44.431629'
+    file_size: 35056
+    file_type: .docx
+  EAST元数据说明:
+    original_path: data/KnowledgeBase/EAST元数据说明.xlsx
+    collection_id: east
+    collection_name: EAST元数据说明
+    keywords:
+    - EAST
+    - 元数据
+    - 数据说明
+    added_at: '2025-07-24T20:39:20.970563'
+    file_size: 54109
+    file_type: .xlsx
+  EAST自营资金报送范围:
+    original_path: data/KnowledgeBase/EAST自营资金报送范围.xlsx
+    collection_id: east
+    collection_name: EAST自营资金
+    keywords:
+    - EAST
+    - 自营资金
+    - 报送范围
+    added_at: '2025-07-24T20:39:30.029702'
+    file_size: 10475
+    file_type: .xlsx
+  一表通产品报送映射:
+    original_path: data/KnowledgeBase/一表通产品报送映射.xlsx
+    collection_id: default_collection
+    collection_name: 一表通产品映射
+    keywords:
+    - 一表通
+    - 产品映射
+    - 报送映射
+    added_at: '2025-07-24T20:39:39.772477'
+    file_size: 22728
+    file_type: .xlsx
+  EAST数据结构:
+    original_path: data/KnowledgeBase/EAST数据结构.xlsx
+    collection_id: east
+    collection_name: EAST数据结构
+    keywords:
+    - EAST
+    - 数据结构
+    - 监管数据
+    - 报送系统
+    added_at: '2025-07-24T20:39:16.153443'
+    file_size: 263514
+    file_type: .xlsx
+  一表通数据结构:
+    original_path: data/KnowledgeBase/一表通数据结构.xlsx
+    collection_id: default_collection
+    collection_name: 一表通数据结构
+    keywords:
+    - 一表通
+    - 数据结构
+    - 产品报送
+    added_at: '2025-07-24T20:39:35.130577'
+    file_size: 226545
+    file_type: .xlsx
+  EAST表结构:
+    original_path: data/KnowledgeBase/EAST表结构.xlsx
+    collection_id: east
+    collection_name: EAST表结构
+    keywords:
+    - EAST
+    - 表结构
+    - 数据表
+    added_at: '2025-07-24T20:39:25.496861'
+    file_size: 23616
+    file_type: .xlsx
+auto_generated_collections: {}
+keyword_suggestions: {}
+updated_at: '2025-07-24T20:39:44.431657'
