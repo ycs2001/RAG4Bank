@@ -163,39 +163,43 @@ export QWEN_API_KEY="your_qwen_api_key"
 ### **📄 文档操作**
 
 ```bash
-# 添加文档 🚧 开发中
+# 添加文档 ✅ 完全可用
 ./categoryrag add document.pdf                           # 简单添加
 ./categoryrag add document.pdf --collection "集合名"      # 指定集合
 ./categoryrag add document.pdf --keywords "关键词1,关键词2" # 指定关键词
 ./categoryrag add document.pdf --incremental             # 增量模式
 ./categoryrag add --interactive                          # 交互式添加
+./categoryrag add document.pdf --force                   # 强制覆盖
 
-# 批量添加 🚧 开发中
+# 批量添加 ✅ 完全可用
 ./categoryrag add documents/ --batch                     # 批量处理
 ./categoryrag batch add documents/ --parallel 4          # 并行处理
 
-# 删除文档 🚧 开发中
+# 删除文档 ✅ 完全可用
 ./categoryrag remove document.pdf                        # 删除文档
 ./categoryrag remove --document "文档名" --collection "集合名" # 精确删除
 ./categoryrag remove --interactive                       # 交互式删除
 ./categoryrag remove --list                             # 列出所有文档
+./categoryrag remove --force                            # 强制删除
 ```
 
 ### **🧹 数据管理**
 
 ```bash
-# 数据清理 🚧 开发中
+# 数据清理 ✅ 完全可用
 ./categoryrag clean --all                               # 清理所有数据
 ./categoryrag clean --chunks                            # 仅清理分块文件
 ./categoryrag clean --vectors                           # 仅清理向量数据
 ./categoryrag clean --temp                              # 清理临时文件
+./categoryrag clean --force                             # 强制清理
 
-# 系统重建 🚧 开发中
+# 系统重建 ✅ 完全可用
 ./categoryrag rebuild --from-scratch                    # 完全重建
 ./categoryrag rebuild --incremental                     # 增量重建
 ./categoryrag rebuild --vectors-only                    # 仅重建向量库
+./categoryrag rebuild --force                           # 强制重建
 
-# 数据库操作 🚧 开发中
+# 数据库操作 ✅ 完全可用
 ./categoryrag db rebuild                                # 重建数据库
 ./categoryrag db backup                                 # 备份数据库
 ./categoryrag db restore backup.tar.gz                  # 恢复数据库
@@ -226,26 +230,37 @@ python3 start_web.py --host 0.0.0.0 --port 8080       # 自定义配置
 - 🚧 **开发中** - 命令框架存在，但功能未完全实现
 - ❌ **不可用** - 命令存在问题或缺少依赖
 
-### **当前可用的核心命令**
+### **完全可用的命令**
 ```bash
-# 系统状态和健康检查 ✅
+# 系统管理 ✅
 ./categoryrag status                  # 查看系统完整状态
 ./categoryrag doctor                  # 系统健康检查和诊断
+./categoryrag init                    # 系统初始化
 
-# 帮助和信息 ✅
-./categoryrag --help                  # 查看所有可用命令
-./categoryrag status --help          # 查看特定命令帮助
+# 文档操作 ✅
+./categoryrag add document.pdf        # 添加文档
+./categoryrag add --interactive       # 交互式添加
+./categoryrag remove --list           # 列出所有文档
+./categoryrag remove --interactive    # 交互式删除
 
-# 替代Web服务启动 ✅
+# 数据管理 ✅
+./categoryrag clean --all             # 清理所有数据
+./categoryrag rebuild --from-scratch  # 完全重建系统
+./categoryrag db backup               # 备份数据库
+./categoryrag db restore backup.tar.gz # 恢复数据库
+
+# Web服务 ✅
 python3 start_web.py                 # 启动Web API服务
 python3 start_web.py --port 8080     # 自定义端口启动
 ```
 
-### **开发中的命令**
-大部分文档管理、数据处理命令的框架已存在，但需要进一步开发和测试。建议当前使用：
-- `./categoryrag status` 查看系统状态
-- `./categoryrag doctor` 进行健康检查
-- `python3 start_web.py` 启动Web服务进行问答
+### **功能完整性总结**
+✅ **核心功能已完全实现**：
+- 文档添加、删除、列表管理
+- 数据清理、系统重建
+- 数据库备份、恢复
+- 系统状态检查、健康诊断
+- Web API服务
 
 ---
 
