@@ -85,7 +85,7 @@ CategoryRAG 是一个现代化的智能检索增强生成（RAG）系统，专�
 
 #### **1. 克隆项目**
 ```bash
-git clone <repository-url>
+git clone https://github.com/ycs2001/CategoryRAG.git
 cd CategoryRAG
 ```
 
@@ -141,40 +141,40 @@ export QWEN_API_KEY="your_qwen_api_key"
 ### **🔧 系统管理**
 
 ```bash
-# 初始化系统
-./categoryrag init                    # 标准初始化
+# 系统状态检查 ✅ 可用
+./categoryrag status                  # 基本状态检查
+./categoryrag status --detailed       # 详细状态信息
+./categoryrag status --json           # JSON格式输出
+
+# 健康检查 ✅ 可用
+./categoryrag doctor                  # 系统健康检查
+./categoryrag doctor --fix            # 自动修复问题
+./categoryrag doctor --report         # 生成健康报告
+
+# 初始化系统 🚧 部分可用
+./categoryrag init                    # 系统初始化
 ./categoryrag init --wizard           # 向导式初始化
 
-# 系统状态
-./categoryrag status                  # 基本状态
-./categoryrag status --detailed       # 详细状态
-./categoryrag status --json           # JSON格式
-
-# 健康检查
-./categoryrag doctor                  # 健康检查
-./categoryrag doctor --fix            # 自动修复问题
-
-# 配置管理
-./categoryrag config show             # 显示配置
+# 配置管理 🚧 部分可用
+./categoryrag config show             # 显示配置（需要修复）
 ./categoryrag config validate         # 验证配置
 ```
 
 ### **📄 文档操作**
 
 ```bash
-# 添加文档
+# 添加文档 🚧 开发中
 ./categoryrag add document.pdf                           # 简单添加
 ./categoryrag add document.pdf --collection "集合名"      # 指定集合
 ./categoryrag add document.pdf --keywords "关键词1,关键词2" # 指定关键词
 ./categoryrag add document.pdf --incremental             # 增量模式
-./categoryrag add document.pdf --preview                 # 预览模式
 ./categoryrag add --interactive                          # 交互式添加
 
-# 批量添加
+# 批量添加 🚧 开发中
 ./categoryrag add documents/ --batch                     # 批量处理
-./categoryrag add documents/ --batch --parallel 4        # 并行处理
+./categoryrag batch add documents/ --parallel 4          # 并行处理
 
-# 删除文档
+# 删除文档 🚧 开发中
 ./categoryrag remove document.pdf                        # 删除文档
 ./categoryrag remove --document "文档名" --collection "集合名" # 精确删除
 ./categoryrag remove --interactive                       # 交互式删除
@@ -184,18 +184,18 @@ export QWEN_API_KEY="your_qwen_api_key"
 ### **🧹 数据管理**
 
 ```bash
-# 数据清理
+# 数据清理 🚧 开发中
 ./categoryrag clean --all                               # 清理所有数据
 ./categoryrag clean --chunks                            # 仅清理分块文件
 ./categoryrag clean --vectors                           # 仅清理向量数据
 ./categoryrag clean --temp                              # 清理临时文件
 
-# 系统重建
+# 系统重建 🚧 开发中
 ./categoryrag rebuild --from-scratch                    # 完全重建
 ./categoryrag rebuild --incremental                     # 增量重建
 ./categoryrag rebuild --vectors-only                    # 仅重建向量库
 
-# 数据库操作
+# 数据库操作 🚧 开发中
 ./categoryrag db rebuild                                # 重建数据库
 ./categoryrag db backup                                 # 备份数据库
 ./categoryrag db restore backup.tar.gz                  # 恢复数据库
@@ -204,13 +204,48 @@ export QWEN_API_KEY="your_qwen_api_key"
 ### **🚀 系统启动**
 
 ```bash
-# 启动服务
+# 启动服务 🚧 开发中
 ./categoryrag start                                     # 启动CLI界面
 ./categoryrag start --check-deps                       # 检查依赖后启动
+
+# Web服务 🚧 需要修复
 ./categoryrag web start                                 # 启动Web API服务
 ./categoryrag web start --host 0.0.0.0 --port 8080     # 自定义Web服务配置
 
+# 替代方案 ✅ 可用
+python3 start_web.py                                   # 直接启动Web服务
+python3 start_web.py --host 0.0.0.0 --port 8080       # 自定义配置
 ```
+
+---
+
+## 🚦 **CLI命令状态说明**
+
+### **命令可用性图例**
+- ✅ **完全可用** - 命令正常工作，功能完整
+- 🚧 **开发中** - 命令框架存在，但功能未完全实现
+- ❌ **不可用** - 命令存在问题或缺少依赖
+
+### **当前可用的核心命令**
+```bash
+# 系统状态和健康检查 ✅
+./categoryrag status                  # 查看系统完整状态
+./categoryrag doctor                  # 系统健康检查和诊断
+
+# 帮助和信息 ✅
+./categoryrag --help                  # 查看所有可用命令
+./categoryrag status --help          # 查看特定命令帮助
+
+# 替代Web服务启动 ✅
+python3 start_web.py                 # 启动Web API服务
+python3 start_web.py --port 8080     # 自定义端口启动
+```
+
+### **开发中的命令**
+大部分文档管理、数据处理命令的框架已存在，但需要进一步开发和测试。建议当前使用：
+- `./categoryrag status` 查看系统状态
+- `./categoryrag doctor` 进行健康检查
+- `python3 start_web.py` 启动Web服务进行问答
 
 ---
 

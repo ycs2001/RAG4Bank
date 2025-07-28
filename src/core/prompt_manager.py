@@ -5,12 +5,12 @@
 from typing import Dict, List
 from ..retrievers.base_retriever import RetrievalResult
 from .base_component import BaseComponent
-from ..config import ConfigManager
+from ..config.enhanced_config_manager import EnhancedConfigManager
 
 class PromptManager(BaseComponent):
     """提示词管理器"""
 
-    def __init__(self, config_manager: ConfigManager):
+    def __init__(self, config_manager: EnhancedConfigManager):
         """
         初始化提示词管理器
 

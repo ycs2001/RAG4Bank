@@ -38,19 +38,25 @@ logger = logging.getLogger(__name__)
 class CategoryRAGWebService:
     """CategoryRAG Web服务类"""
     
-    def __init__(self):
+    def __init__(self, enable_regulatory=False):
         self.app = Flask(__name__)
         CORS(self.app)  # 启用跨域支持
-        
+        self.enable_regulatory = enable_regulatory
+
         # 初始化组件
         self.config_manager = None
         self.rag_system = None
         self.document_adder = None
-        
+
         # 设置路由
         self._setup_routes()
+
+        # 设置监管报送路由（如果启用）
+        if self.enable_regulatory:
+            self._setup_regulatory_routes()
+
         self._setup_error_handlers()
-        
+
         # 初始化系统
         self._initialize_system()
     
@@ -287,6 +293,181 @@ class CategoryRAGWebService:
                 cleaned_scores.append(round(score, 3))
         return cleaned_scores
 
+    def _setup_regulatory_routes(self):
+        """设置监管报送相关路由"""
+
+        @self.app.route('/api/analyze', methods=['POST'])
+        def analyze_regulatory_document():
+            """监管文档分析"""
+            try:
+                data = request.get_json()
+                if not data or 'content' not in data:
+                    return jsonify({'error': '缺少文档内容'}), 400
+
+                content = data['content']
+                analysis_type = data.get('type', 'general')
+
+                # 使用RAG系统进行分析
+                if self.rag_system:
+                    query = f"请分析以下{analysis_type}文档的合规性和要点：{content[:1000]}"
+                    result = self.rag_system.query(query)
+
+                    return jsonify({
+                        'analysis': result.get('answer', ''),
+                        'type': analysis_type,
+                        'timestamp': datetime.now().isoformat(),
+                        'confidence': result.get('confidence', 0.8)
+                    })
+                else:
+                    return jsonify({'error': 'RAG系统未初始化'}), 500
+
+            except Exception as e:
+                logger.error(f"监管文档分析失败: {e}")
+                return jsonify({'error': f'分析失败: {str(e)}'}), 500
+
+        @self.app.route('/api/templates', methods=['GET'])
+        def get_regulatory_templates():
+            """获取监管报表模板"""
+            try:
+                templates = [
+                    {
+                        'id': '1104_template',
+                        'name': '1104报表模板',
+                        'description': '银行业监管统计报表',
+                        'version': '2024版',
+                        'category': '监管报表'
+                    },
+                    {
+                        'id': 'east_template',
+                        'name': 'EAST数据模板',
+                        'description': 'EAST监管数据报送模板',
+                        'version': '现行版',
+                        'category': '数据报送'
+                    }
+                ]
+
+                return jsonify({
+                    'templates': templates,
+                    'total_count': len(templates),
+                    'timestamp': datetime.now().isoformat()
+                })
+
+            except Exception as e:
+                logger.error(f"获取模板失败: {e}")
+                return jsonify({'error': f'获取模板失败: {str(e)}'}), 500
+
+        @self.app.route('/api/validate', methods=['POST'])
+        def validate_regulatory_data():
+            """验证监管数据"""
+            try:
+                data = request.get_json()
+                if not data:
+                    return jsonify({'error': '缺少验证数据'}), 400
+
+                # 简单的验证逻辑
+                validation_result = {
+                    'is_valid': True,
+                    'errors': [],
+                    'warnings': [],
+                    'timestamp': datetime.now().isoformat()
+                }
+
+                # 这里可以添加具体的验证逻辑
+                if 'required_fields' in data:
+                    for field in data['required_fields']:
+                        if not data.get(field):
+                            validation_result['errors'].append(f'缺少必填字段: {field}')
+                            validation_result['is_valid'] = False
+
+                return jsonify(validation_result)
+
+            except Exception as e:
+                logger.error(f"数据验证失败: {e}")
+                return jsonify({'error': f'验证失败: {str(e)}'}), 500
+
+        @self.app.route('/api/upload', methods=['POST'])
+        def upload_regulatory_document():
+            """上传监管文档（监管报送专用）"""
+            try:
+                if 'file' not in request.files:
+                    return jsonify({'error': '没有上传文件'}), 400
+
+                file = request.files['file']
+                if file.filename == '':
+                    return jsonify({'error': '文件名为空'}), 400
+
+                # 保存文件并处理
+                file_path = f"data/regulatory_uploads/{file.filename}"
+                os.makedirs(os.path.dirname(file_path), exist_ok=True)
+                file.save(file_path)
+
+                return jsonify({
+                    'message': '监管文档上传成功',
+                    'filename': file.filename,
+                    'file_path': file_path,
+                    'timestamp': datetime.now().isoformat(),
+                    'note': '文档已保存到监管文档目录'
+                })
+
+            except Exception as e:
+                logger.error(f"监管文档上传失败: {e}")
+                return jsonify({'error': f'上传失败: {str(e)}'}), 500
+
+        @self.app.route('/api/history', methods=['GET'])
+        def get_analysis_history():
+            """获取分析历史"""
+            try:
+                # 这里可以从数据库或文件中读取历史记录
+                history = [
+                    {
+                        'id': '1',
+                        'type': '1104报表分析',
+                        'timestamp': '2025-07-25T10:00:00',
+                        'status': 'completed'
+                    }
+                ]
+
+                return jsonify({
+                    'history': history,
+                    'total_count': len(history),
+                    'timestamp': datetime.now().isoformat()
+                })
+
+            except Exception as e:
+                logger.error(f"获取历史记录失败: {e}")
+                return jsonify({'error': f'获取历史失败: {str(e)}'}), 500
+
+        @self.app.route('/api/reports', methods=['GET'])
+        def get_regulatory_reports():
+            """获取监管报表列表"""
+            try:
+                reports = [
+                    {
+                        'id': 'report_1104_2024',
+                        'name': '1104报表_2024版',
+                        'type': '监管报表',
+                        'status': 'active',
+                        'last_updated': '2024-12-01'
+                    },
+                    {
+                        'id': 'east_data_structure',
+                        'name': 'EAST数据结构',
+                        'type': '数据结构',
+                        'status': 'active',
+                        'last_updated': '2024-11-15'
+                    }
+                ]
+
+                return jsonify({
+                    'reports': reports,
+                    'total_count': len(reports),
+                    'timestamp': datetime.now().isoformat()
+                })
+
+            except Exception as e:
+                logger.error(f"获取报表列表失败: {e}")
+                return jsonify({'error': f'获取报表失败: {str(e)}'}), 500
+
     def _setup_error_handlers(self):
         """设置错误处理器"""
         
@@ -339,22 +520,34 @@ class CategoryRAGWebService:
 def main():
     """主函数"""
     import argparse
-    
-    parser = argparse.ArgumentParser(description='CategoryRAG Web服务')
+
+    parser = argparse.ArgumentParser(description='CategoryRAG统一Web服务')
     parser.add_argument('--host', default='127.0.0.1', help='服务器地址')
     parser.add_argument('--port', type=int, default=5000, help='服务器端口')
     parser.add_argument('--debug', action='store_true', help='调试模式')
-    
+    parser.add_argument('--regulatory', action='store_true', help='启用监管报送功能')
+
     args = parser.parse_args()
-    
+
     # 确保日志目录存在
     Path('logs').mkdir(exist_ok=True)
-    
+
     try:
         # 创建并启动Web服务
-        web_service = CategoryRAGWebService()
+        web_service = CategoryRAGWebService(enable_regulatory=args.regulatory)
+
+        if args.regulatory:
+            logger.info("🏛️ 启用监管报送功能")
+            logger.info("📋 额外API端点:")
+            logger.info("   POST /api/analyze     - 监管文档分析")
+            logger.info("   GET  /api/templates   - 报表模板")
+            logger.info("   POST /api/validate    - 数据验证")
+            logger.info("   POST /api/upload      - 文档上传")
+            logger.info("   GET  /api/history     - 分析历史")
+            logger.info("   GET  /api/reports     - 报表列表")
+
         web_service.run(host=args.host, port=args.port, debug=args.debug)
-        
+
     except KeyboardInterrupt:
         logger.info("👋 Web服务已停止")
     except Exception as e:

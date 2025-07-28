@@ -151,9 +151,9 @@ class RAGSystemBuilder:
         # 检查BGE模型
         try:
             sys.path.insert(0, 'src')
-            from src.config import ConfigManager
-            config = ConfigManager()
-            model_path = config.get('retrieval.embedding.model_path')
+            from src.config import EnhancedConfigManager
+            config = EnhancedConfigManager()
+            model_path = config.get('embedding.model.path')
             
             if model_path and Path(model_path).exists():
                 logger.info(f"✅ BGE模型路径有效: {model_path}")
@@ -217,13 +217,13 @@ class RAGSystemBuilder:
                 # 获取构建统计
                 try:
                     sys.path.insert(0, 'src')
-                    from src.config import ConfigManager
+                    from src.config import EnhancedConfigManager
                     from src.retrievers import ChromaDBRetriever
-                    
-                    config_manager = ConfigManager()
-                    chromadb_config = config_manager.get_section('retrieval.chromadb')
-                    embedding_config = config_manager.get_section('retrieval.embedding')
-                    collections_config = config_manager.get('retrieval.collections', [])
+
+                    config_manager = EnhancedConfigManager()
+                    chromadb_config = config_manager.get('data.chroma_db_dir', './data/chroma_db')
+                    embedding_config = config_manager.get('embedding.model.path')
+                    collections_config = config_manager.get('embedding.collections', [])
                     
                     retriever_config = {
                         'db_path': chromadb_config.get('db_path', './data/chroma_db'),

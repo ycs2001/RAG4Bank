@@ -8,7 +8,7 @@ from typing import Dict, Any, List, Optional
 from dataclasses import dataclass
 from pathlib import Path
 
-from ..config import ConfigManager
+from ..config import EnhancedConfigManager
 from ..llm.deepseek_llm import DeepSeekLLM
 from ..retrievers.chromadb_retriever import ChromaDBRetriever
 from ..rerankers import BaseReranker, CrossEncoderReranker
@@ -27,7 +27,7 @@ class RAGResponse:
 class TopicClassifier:
     """简化的主题分类器"""
     
-    def __init__(self, config_manager: ConfigManager):
+    def __init__(self, config_manager: EnhancedConfigManager):
         self.config_manager = config_manager
         self.logger = logging.getLogger(__name__)
         
@@ -46,21 +46,36 @@ class TopicClassifier:
         query_lower = query.lower()
         matched_collections = []
 
-        # 检测比较查询关键词
-        comparison_keywords = ['对比', '比较', '差异', '差别', '区别', '相比']
+        # 1. 版本检测
+        version_info = self._detect_version_intent(query_lower)
+        self.logger.info(f"🔍 版本检测结果: {version_info}")
 
+        # 2. 检测比较查询关键词
+        comparison_keywords = ['对比', '比较', '差异', '差别', '区别', '相比']
         is_comparison = (
             any(keyword in query_lower for keyword in comparison_keywords) or
-            ('和' in query_lower and ('分析' in query_lower or '对比' in query_lower or '比较' in query_lower))
+            ('和' in query_lower and ('分析' in query_lower or '对比' in query_lower or '比较' in query_lower)) or
+            version_info['is_comparison']  # 基于版本检测的比较判断
         )
 
-        # 检测涉及的系统
+        # 3. 检测涉及的系统
         has_east = 'east' in query_lower
         has_ybt = '一表通' in query_lower
         has_pboc = any(keyword in query_lower for keyword in ['人民银行', '央行', '金融统计', '大集中'])
         has_1104 = any(keyword in query_lower for keyword in ['1104', 's71', 'g01'])
 
-        # 比较查询：包含多个系统
+        # 4. 智能1104集合选择（优先处理）
+        if has_1104:
+            selected_1104_collections = self._select_1104_collections(version_info, is_comparison)
+            if selected_1104_collections:
+                matched_collections.extend(selected_1104_collections)
+                self.logger.info(f"🎯 1104集合选择: {selected_1104_collections}")
+
+                # 如果是纯1104查询且已选择，直接返回
+                if not (has_east or has_ybt or has_pboc):
+                    return matched_collections[:3]
+
+        # 5. 比较查询：包含多个系统
         if is_comparison:
             if has_pboc and has_1104:
                 matched_collections = ['pboc_statistics', 'report_1104_2024']
@@ -71,14 +86,12 @@ class TopicClassifier:
             elif has_ybt and has_1104:
                 matched_collections = ['ybt_data_structure', 'ybt_product_mapping', 'report_1104_2024']
                 self.logger.info(f"🔄 检测到一表通与1104报表比较查询")
-            elif has_1104 and ('2024' in query_lower and '2022' in query_lower):
-                matched_collections = ['report_1104_2024', 'report_1104_2022']
-                self.logger.info(f"🔄 检测到1104报表版本比较查询")
             else:
                 # 通用比较查询，使用多个相关集合
                 if has_pboc:
                     matched_collections.append('pboc_statistics')
-                if has_1104:
+                if has_1104 and 'report_1104' not in str(matched_collections):
+                    # 如果1104还没有被处理，使用比较逻辑
                     matched_collections.extend(['report_1104_2024', 'report_1104_2022'])
                 if has_east:
                     matched_collections.extend(['east_data_structure', 'east_metadata'])
@@ -103,15 +116,9 @@ class TopicClassifier:
             self.logger.info(f"🎯 检测到人民银行查询，只使用人民银行集合")
             return matched_collections
 
-        # 关键词匹配（作为补充）
-        for collection_id, keywords in self.keyword_mapping.items():
-            for keyword in keywords:
-                # 确保关键词是字符串类型
-                keyword_str = str(keyword).lower() if keyword is not None else ""
-                if keyword_str and keyword_str in query_lower:
-                    if collection_id not in matched_collections:
-                        matched_collections.append(collection_id)
-                    break
+        # 6. 关键词匹配（作为补充，排除已处理的1104集合）
+        keyword_matched = self._keyword_matching_with_priority(query_lower, matched_collections, has_1104)
+        matched_collections.extend(keyword_matched)
 
         # 特殊处理：普惠金融相关查询（仅在没有明确系统指向时）
         if not matched_collections and any(keyword in query_lower for keyword in ['普惠金融', '报送表', '涉及哪些表']):
@@ -127,11 +134,137 @@ class TopicClassifier:
         # 限制最多3个集合
         return matched_collections[:3]
 
+    def _detect_version_intent(self, query_lower: str) -> Dict[str, Any]:
+        """检测查询中的版本意图"""
+        import re
+
+        # 版本模式匹配
+        version_patterns = {
+            '2024': [r'2024年?', r'2024版', r'最新版?', r'新版', r'当前版'],
+            '2022': [r'2022年?', r'2022版', r'旧版', r'老版', r'历史版'],
+        }
+
+        detected_versions = []
+        explicit_versions = []
+
+        # 检测明确的版本表达
+        for version, patterns in version_patterns.items():
+            for pattern in patterns:
+                if re.search(pattern, query_lower):
+                    detected_versions.append(version)
+                    if pattern in [r'2024年?', r'2024版', r'2022年?', r'2022版']:
+                        explicit_versions.append(version)
+                    break
+
+        # 检测比较意图
+        is_comparison = (
+            len(detected_versions) > 1 or  # 检测到多个版本
+            any(keyword in query_lower for keyword in ['变化', '更新', '修订', '调整']) or
+            ('新旧' in query_lower) or
+            ('历史' in query_lower and '对比' in query_lower)
+        )
+
+        # 确定优先版本
+        preferred_version = None
+        if explicit_versions:
+            # 如果有明确版本，优先使用最新的明确版本
+            preferred_version = max(explicit_versions)
+        elif detected_versions and not is_comparison:
+            # 如果只检测到一个版本且非比较查询
+            preferred_version = detected_versions[0]
+
+        return {
+            'detected_versions': detected_versions,
+            'explicit_versions': explicit_versions,
+            'preferred_version': preferred_version,
+            'is_comparison': is_comparison,
+            'confidence': len(explicit_versions) / max(len(detected_versions), 1) if detected_versions else 0
+        }
+
+    def _select_1104_collections(self, version_info: Dict[str, Any], is_comparison: bool) -> List[str]:
+        """智能选择1104集合"""
+        available_collections = ['report_1104_2024', 'report_1104_2022']
+
+        # 1. 比较查询：返回所有版本
+        if is_comparison:
+            self.logger.info("📊 检测到比较查询，选择所有1104版本")
+            return available_collections
+
+        # 2. 明确版本偏好
+        preferred_version = version_info.get('preferred_version')
+        if preferred_version:
+            if preferred_version == '2024':
+                self.logger.info("🎯 明确要求2024版本")
+                return ['report_1104_2024']
+            elif preferred_version == '2022':
+                self.logger.info("🎯 明确要求2022版本")
+                return ['report_1104_2022']
+
+        # 3. 检测到多个版本但非比较查询：使用最新版本
+        detected_versions = version_info.get('detected_versions', [])
+        if len(detected_versions) > 1:
+            self.logger.info("⚖️ 检测到多版本但非比较查询，优先使用最新版本")
+            return ['report_1104_2024']
+
+        # 4. 默认策略：优先使用最新版本
+        self.logger.info("📋 使用默认策略：优先最新版本")
+        return ['report_1104_2024']
+
+    def _keyword_matching_with_priority(self, query_lower: str, existing_collections: List[str], skip_1104: bool = False) -> List[str]:
+        """优先级感知的关键词匹配"""
+        matched_collections = []
+        collection_scores = []
+
+        # 获取集合配置信息
+        collections_config = self.config_manager.get('embedding.collections', [])
+
+        for collection_config in collections_config:
+            collection_id = collection_config.get('collection_id')
+            keywords = collection_config.get('keywords', [])
+            priority = collection_config.get('priority', 999)  # 默认低优先级
+
+            # 跳过已选择的集合
+            if collection_id in existing_collections:
+                continue
+
+            # 跳过1104集合（如果已经处理过）
+            if skip_1104 and collection_id.startswith('report_1104'):
+                continue
+
+            # 计算匹配分数
+            match_score = 0
+            matched_keywords = []
+
+            for keyword in keywords:
+                keyword_str = str(keyword).lower() if keyword is not None else ""
+                if keyword_str and keyword_str in query_lower:
+                    match_score += 1
+                    matched_keywords.append(keyword_str)
+
+            if match_score > 0:
+                collection_scores.append({
+                    'collection_id': collection_id,
+                    'score': match_score,
+                    'priority': priority,
+                    'matched_keywords': matched_keywords
+                })
+
+        # 按优先级和匹配分数排序
+        collection_scores.sort(key=lambda x: (-x['score'], x['priority']))
+
+        # 选择最佳匹配
+        for item in collection_scores:
+            if item['collection_id'] not in matched_collections:
+                matched_collections.append(item['collection_id'])
+                self.logger.info(f"🔍 关键词匹配: {item['collection_id']} (分数:{item['score']}, 优先级:{item['priority']}, 关键词:{item['matched_keywords']})")
+
+        return matched_collections
+
 
 class UnifiedRAGSystem:
     """统一的RAG系统"""
     
-    def __init__(self, config_manager: ConfigManager):
+    def __init__(self, config_manager: EnhancedConfigManager):
         """初始化RAG系统"""
         self.config_manager = config_manager
         self.logger = logging.getLogger(__name__)

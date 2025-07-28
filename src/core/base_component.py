@@ -4,20 +4,20 @@
 
 import logging
 from typing import Any, Optional
-from ..config import ConfigManager
+from ..config import EnhancedConfigManager
 
 class BaseComponent:
     """所有核心组件的基类，统一配置管理和日志"""
-    
-    def __init__(self, config_manager: ConfigManager):
+
+    def __init__(self, config_manager: EnhancedConfigManager):
         """
         初始化基础组件
-        
+
         Args:
             config_manager: 配置管理器实例
         """
-        if not isinstance(config_manager, ConfigManager):
-            raise TypeError("config_manager must be an instance of ConfigManager")
+        if not isinstance(config_manager, EnhancedConfigManager):
+            raise TypeError("config_manager must be an instance of EnhancedConfigManager")
             
         self.config_manager = config_manager
         self.logger = logging.getLogger(self.__class__.__name__)

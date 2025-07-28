@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 from pathlib import Path
 from .base_component import BaseComponent
-from ..config import ConfigManager
+from ..config import EnhancedConfigManager
 from ..retrievers.base_retriever import RetrievalResult
 
 class DebugManager(BaseComponent):

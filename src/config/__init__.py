@@ -1,5 +1,6 @@
 """配置管理模块"""
 
-from .config_manager import ConfigManager
+from .enhanced_config_manager import EnhancedConfigManager
+from .dynamic_config_manager import DynamicConfigManager
 
-__all__ = ['ConfigManager']
+__all__ = ['EnhancedConfigManager', 'DynamicConfigManager']

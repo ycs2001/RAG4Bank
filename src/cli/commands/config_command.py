@@ -14,8 +14,8 @@ from ...config.dynamic_config_manager import DynamicConfigManager
 class ConfigCommand(BaseCommand):
     """配置管理命令"""
 
-    def __init__(self, config_manager, args):
-        super().__init__(config_manager, args)
+    def __init__(self, args):
+        super().__init__(args)
         self.cli_utils = CLIUtils()
         self.validator = ConfigValidator()
         self.migrator = ConfigMigrator()

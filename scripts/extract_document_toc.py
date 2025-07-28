@@ -15,7 +15,7 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(project_root / 'src'))
 
-from src.config import ConfigManager
+from src.config import EnhancedConfigManager
 from src.core.document_preprocessor import DocumentPreprocessor
 from src.llm.qwen_llm import QwenLLM
 
@@ -31,7 +31,7 @@ def setup_logging(verbose: bool = False):
         ]
     )
 
-def extract_single_document(document_id: str, config_manager: ConfigManager, 
+def extract_single_document(document_id: str, config_manager: EnhancedConfigManager,
                           preprocessor: DocumentPreprocessor) -> bool:
     """
     提取单个文档的目录
@@ -86,7 +86,7 @@ def extract_single_document(document_id: str, config_manager: ConfigManager,
         logger.error(f"❌ 处理文档 {document_id} 时发生异常: {e}")
         return False
 
-def extract_all_documents(config_manager: ConfigManager, 
+def extract_all_documents(config_manager: EnhancedConfigManager,
                          preprocessor: DocumentPreprocessor,
                          force: bool = False) -> dict:
     """
@@ -212,7 +212,7 @@ def main():
 
         # 初始化配置管理器
         logger.info("🔧 初始化配置管理器...")
-        config_manager = ConfigManager()
+        config_manager = EnhancedConfigManager()
 
         # 列出文档ID
         if args.list:

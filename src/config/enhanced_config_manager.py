@@ -8,6 +8,13 @@ import yaml
 import logging
 from pathlib import Path
 from typing import Dict, Any, Optional, List
+
+# 尝试导入python-dotenv，如果没有安装则跳过
+try:
+    from dotenv import load_dotenv
+    DOTENV_AVAILABLE = True
+except ImportError:
+    DOTENV_AVAILABLE = False
 from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
@@ -33,8 +40,24 @@ class EnhancedConfigManager:
         self.config_dir = Path(config_dir)
         self.env = env
         self.config = {}
+
+        # 尝试加载.env文件
+        self._load_dotenv()
+
         self._load_config()
-    
+
+    def _load_dotenv(self):
+        """加载.env文件"""
+        if DOTENV_AVAILABLE:
+            env_file = Path('.env')
+            if env_file.exists():
+                load_dotenv(env_file)
+                logger.info("✅ 加载.env文件")
+            else:
+                logger.debug("📄 .env文件不存在")
+        else:
+            logger.debug("📦 python-dotenv未安装，跳过.env文件加载")
+
     def _load_config(self):
         """加载配置文件"""
         try:
@@ -45,14 +68,7 @@ class EnhancedConfigManager:
                     self.config = yaml.safe_load(f)
                 logger.info(f"✅ 加载统一配置文件: {unified_config_path}")
             else:
-                # 回退到原配置文件
-                config_path = self.config_dir / "config.yaml"
-                if config_path.exists():
-                    with open(config_path, 'r', encoding='utf-8') as f:
-                        self.config = yaml.safe_load(f)
-                    logger.info(f"✅ 加载原配置文件: {config_path}")
-                else:
-                    raise FileNotFoundError("未找到配置文件")
+                raise FileNotFoundError(f"未找到配置文件: {unified_config_path}")
             
             # 2. 加载环境特定配置
             env_config_path = self.config_dir / f"{self.env}.yaml"
@@ -90,17 +106,26 @@ class EnhancedConfigManager:
     
     def _process_env_variables(self):
         """处理环境变量"""
+        import os
+
         def process_value(value):
             if isinstance(value, str) and value.startswith("${") and value.endswith("}"):
                 env_var = value[2:-1]
-                return os.getenv(env_var, value)
+                env_value = os.getenv(env_var)
+                if env_value is not None:
+                    logger.debug(f"✅ 环境变量替换: {value} -> {env_value[:10]}...")
+                    return env_value
+                else:
+                    logger.warning(f"⚠️ 环境变量未设置: {env_var}")
+                    return value
             elif isinstance(value, dict):
                 return {k: process_value(v) for k, v in value.items()}
             elif isinstance(value, list):
                 return [process_value(item) for item in value]
             return value
-        
+
         self.config = process_value(self.config)
+        logger.info("✅ 环境变量处理完成")
     
     def get(self, path: str, default: Any = None) -> Any:
         """

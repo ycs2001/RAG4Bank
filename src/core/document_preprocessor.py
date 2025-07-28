@@ -11,12 +11,12 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional
 from pathlib import Path
 from .base_component import BaseComponent
-from ..config import ConfigManager
+from ..config import EnhancedConfigManager
 
 class DocumentPreprocessor(BaseComponent):
     """文档预处理器 - 使用gorbid + LLM智能提取目录"""
 
-    def __init__(self, config_manager: ConfigManager, llm=None):
+    def __init__(self, config_manager: EnhancedConfigManager, llm=None):
         """
         初始化文档预处理器
 
