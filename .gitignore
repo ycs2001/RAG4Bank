@@ -209,3 +209,4 @@ Desktop.ini
 !README.md
 !docs/
 !*.md
+data/chroma_db/*.sqlite3
