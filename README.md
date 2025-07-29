@@ -10,9 +10,24 @@
 
 *基于主题分类的多文档集合智能问答平台*
 
+**Enterprise-Grade Intelligent Retrieval-Augmented Generation (RAG) System**
+
+*Topic-Classified Multi-Document Collection Intelligent Q&A Platform*
+
+![CLI](https://img.shields.io/badge/CLI-Full%20Featured-orange?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen?style=for-the-badge)
+
 </div>
 
 ---
+
+## 🌍 Language / 语言
+
+**[English](#english-version) | [中文](#中文版本)**
+
+---
+
+# 中文版本
 
 ## 🎯 **项目概述**
 
@@ -537,25 +552,147 @@ pip install -r requirements-dev.txt
 
 ---
 
-## 📄 **许可证**
+# English Version
 
-本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件。
+## 📋 Project Overview
 
----
+CategoryRAG is a comprehensive enterprise-grade intelligent document Q&A system built on advanced RAG (Retrieval-Augmented Generation) architecture. It provides efficient document management, intelligent retrieval, and natural language Q&A capabilities for enterprises, with deep optimization for professional domains such as financial regulatory reports, statistical systems, and enterprise knowledge bases.
 
-## 📞 **支持和联系**
+### 🎯 Key Features
 
-- 📧 **邮箱**: [support@categoryrag.com]
-- 🐛 **问题反馈**: [GitHub Issues](https://github.com/your-org/CategoryRAG/issues)
-- 📖 **文档**: [完整文档](https://docs.categoryrag.com)
-- 💬 **社区**: [讨论区](https://github.com/your-org/CategoryRAG/discussions)
+- **🤖 Intelligent Q&A**: Natural language Q&A based on large language models, supporting complex queries and multi-turn conversations
+- **📚 Document Management**: Complete document lifecycle management supporting PDF, Word, Excel, and other formats
+- **🔍 Precise Retrieval**: BGE vector models with Cross-Encoder reranking for optimal retrieval accuracy
+- **⚡ High Performance**: Large-scale document processing capability, managing thousands of documents per system
+- **🛠️ Full-Featured CLI**: Complete command-line tools supporting batch operations and automated deployment
+- **🔧 Enterprise-Grade**: Complete backup/recovery, health monitoring, error handling, and other enterprise features
+
+### 💼 Use Cases
+
+- **Financial Regulation**: Banking regulatory statistical report system queries and analysis
+- **Enterprise Knowledge Base**: Internal document management and knowledge retrieval
+- **Legal Compliance**: Intelligent querying and interpretation of legal and regulatory documents
+- **Technical Documentation**: Intelligent Q&A for API docs and technical specifications
+- **Education & Training**: Intelligent tutoring for training materials and learning resources
+
+### 🏗️ Technical Architecture
+
+- **Frontend**: Web API + CLI Tools
+- **Backend**: Python + FastAPI
+- **Vector Database**: ChromaDB
+- **Language Models**: Support for DeepSeek, Qwen, OpenAI, and other LLMs
+- **Vector Models**: BGE-large-zh-v1.5 + Cross-Encoder reranking
+- **Document Processing**: GROBID + proprietary chunking algorithms
+
+### 📊 System Capabilities
+
+- **Document Processing**: Large-scale management of 803+ documents across 10+ collections
+- **Retrieval Performance**: Millisecond-level vector retrieval with intelligent reranking optimization
+- **Concurrent Support**: Multi-user concurrent access support
+- **Data Security**: Complete backup/recovery mechanisms with encrypted data storage
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Python 3.8+
+- 8GB+ RAM recommended
+- 10GB+ disk space
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/ycs2001/RAG4Bank.git
+cd CategoryRAG
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Initialize the system
+./categoryrag init --wizard
+
+# Check system status
+./categoryrag status
+```
+
+### Basic Usage
+
+```bash
+# Add documents
+./categoryrag add document.pdf --collection "My Documents"
+
+# Interactive document management
+./categoryrag add --interactive
+
+# List all documents
+./categoryrag remove --list
+
+# Start web service
+python3 start_web.py
+```
+
+## 📚 CLI Commands
+
+### Document Operations
+
+```bash
+# Add documents
+./categoryrag add document.pdf                           # Simple add
+./categoryrag add document.pdf --collection "Collection" # Specify collection
+./categoryrag add document.pdf --keywords "key1,key2"    # Add keywords
+./categoryrag add --interactive                          # Interactive mode
+
+# Remove documents
+./categoryrag remove document.pdf                        # Remove document
+./categoryrag remove --interactive                       # Interactive removal
+./categoryrag remove --list                             # List all documents
+```
+
+### Data Management
+
+```bash
+# Data cleaning
+./categoryrag clean --all                               # Clean all data
+./categoryrag clean --chunks                            # Clean chunk files only
+./categoryrag clean --vectors                           # Clean vector data only
+
+# System rebuild
+./categoryrag rebuild --from-scratch                    # Complete rebuild
+./categoryrag rebuild --incremental                     # Incremental rebuild
+
+# Database operations
+./categoryrag db backup                                 # Backup database
+./categoryrag db restore backup.tar.gz                 # Restore database
+```
+
+### System Management
+
+```bash
+# System status and health
+./categoryrag status                                    # View system status
+./categoryrag doctor                                    # Health check and diagnosis
+
+# Web service
+python3 start_web.py                                   # Start web API service
+```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📞 Support and Contact
+
+- 🐛 **Issues**: [GitHub Issues](https://github.com/ycs2001/RAG4Bank/issues)
+- 📖 **Documentation**: [Complete Documentation](docs/)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/ycs2001/RAG4Bank/discussions)
 
 ---
 
 <div align="center">
 
-**⭐ 如果这个项目对您有帮助，请给我们一个Star！**
+**⭐ If this project helps you, please give us a Star!**
 
-*CategoryRAG - 让企业知识管理更智能*
+*CategoryRAG - Making Enterprise Knowledge Management Smarter*
 
 </div>

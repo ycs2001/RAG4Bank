@@ -1,5 +1,23 @@
 """
-基础命令类
+CategoryRAG CLI Commands Base Class
+
+This module provides the foundational base class for all CLI commands in the CategoryRAG system.
+It implements common functionality including configuration management, user interaction,
+error handling, and standardized output formatting.
+
+The BaseCommand class serves as the parent class for all specific command implementations
+(add, remove, clean, rebuild, db, etc.) and ensures consistent behavior across the CLI interface.
+
+Key Features:
+- Unified configuration management integration
+- Standardized user interaction methods (confirmations, input prompts)
+- Consistent error handling and logging
+- Formatted output with color coding and icons
+- Data path management and validation
+- Common utility methods for file operations
+
+Author: CategoryRAG Development Team
+License: MIT
 """
 
 import logging
