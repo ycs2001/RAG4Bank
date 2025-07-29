@@ -4,7 +4,6 @@
 
 ![CategoryRAG Logo](https://img.shields.io/badge/CategoryRAG-v2.0-blue?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.8+-green?style=for-the-badge&logo=python)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
 **企业级智能检索增强生成（RAG）系统**
 
@@ -15,8 +14,6 @@
 *Topic-Classified Multi-Document Collection Intelligent Q&A Platform*
 
 ![CLI](https://img.shields.io/badge/CLI-Full%20Featured-orange?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen?style=for-the-badge)
-
 </div>
 
 ---
