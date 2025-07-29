@@ -527,16 +527,6 @@ python collection_database_builder.py → ./categoryrag db rebuild
 - 📖 [完整API文档](docs/)
 
 ---
-
-## 🤝 **贡献指南**
-
-我们欢迎社区贡献！请遵循以下步骤：
-
-1. **Fork项目** 并创建功能分支
-2. **编写代码** 并添加测试
-3. **运行测试** 确保所有功能正常
-4. **提交PR** 并描述变更内容
-
 ### **开发环境设置**
 ```bash
 # 克隆开发版本
@@ -677,17 +667,7 @@ python3 start_web.py
 python3 start_web.py                                   # Start web API service
 ```
 
-## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support and Contact
-
-- 🐛 **Issues**: [GitHub Issues](https://github.com/ycs2001/RAG4Bank/issues)
-- 📖 **Documentation**: [Complete Documentation](docs/)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/ycs2001/RAG4Bank/discussions)
-
----
 
 <div align="center">
 
