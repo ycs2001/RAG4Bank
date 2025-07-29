@@ -210,3 +210,4 @@ Desktop.ini
 !docs/
 !*.md
 data/chroma_db/*.sqlite3
+backups/*.tar.gz
