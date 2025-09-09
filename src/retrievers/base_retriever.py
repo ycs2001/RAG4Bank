@@ -94,12 +94,13 @@ class BaseRetriever(ABC):
         pass
     
     @abstractmethod
-    def delete_documents(self, ids: List[str]):
+    def delete_documents(self, ids: List[str], collection_id: str):
         """
-        删除文档
-        
+        删除指定集合中的文档
+
         Args:
             ids: 要删除的文档ID列表
+            collection_id: 目标集合ID
         """
         pass
     

@@ -11,9 +11,8 @@ from pathlib import Path
 from typing import Optional, List
 
 # 添加项目根目录到Python路径
-project_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root))
-sys.path.insert(0, str(project_root / 'src'))
+project_root = Path(__file__).resolve().parents[1]
+sys.path.append(str(project_root))
 
 from src.config import EnhancedConfigManager
 from src.core.document_preprocessor import DocumentPreprocessor
@@ -190,8 +189,8 @@ def main():
             from pathlib import Path
 
             # 添加脚本目录到路径
-            script_dir = Path(__file__).parent
-            sys.path.insert(0, str(script_dir))
+            script_dir = Path(__file__).resolve().parent
+            sys.path.append(str(script_dir))
 
             from toc_extraction_pipeline import TOCExtractionPipeline
 

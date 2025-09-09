@@ -470,9 +470,9 @@ class UnifiedRAGSystem:
             response = self.llm.generate(
                 prompt,
                 max_tokens=2000,
-                temperature=0
+                temperature=0,
             )
-            return response.strip()
+            return response.text.strip()
 
         except Exception as e:
             # 如果Prompt管理器失败，使用回退Prompt
@@ -499,9 +499,9 @@ class UnifiedRAGSystem:
                 response = self.llm.generate(
                     fallback_prompt,
                     max_tokens=2000,
-                    temperature=0
+                    temperature=0,
                 )
-                return response.strip()
+                return response.text.strip()
             except Exception as e:
                 raise RuntimeError(f"答案生成失败: {e}")
 
@@ -704,7 +704,7 @@ class UnifiedRAGSystem:
 请直接返回相关的目录信息，不要其他解释："""
 
             response = self.llm.generate(prompt, max_tokens=300, temperature=0.1)
-            relevant_context = response.strip()
+            relevant_context = response.text.strip()
 
             # 验证响应
             if relevant_context and relevant_context != "无相关内容" and len(relevant_context) > 10:
@@ -735,7 +735,7 @@ class UnifiedRAGSystem:
 
         try:
             response = self.llm.generate(prompt, max_tokens=200, temperature=0.1)
-            rewritten = response.strip()
+            rewritten = response.text.strip()
 
             # 简单验证：改写后的查询不能为空且不能过长
             if rewritten and len(rewritten) > 5 and len(rewritten) < 200:

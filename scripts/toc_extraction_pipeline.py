@@ -4,7 +4,6 @@ CategoryRAG文档目录提取自动化Pipeline
 一键完成所有文档的目录提取、验证和报告生成
 """
 
-import os
 import sys
 import time
 import json
@@ -17,9 +16,8 @@ from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
 
 # 添加项目根目录到Python路径
-project_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root))
-sys.path.insert(0, str(project_root / 'src'))
+project_root = Path(__file__).resolve().parents[1]
+sys.path.append(str(project_root))
 
 from src.config import EnhancedConfigManager
 from src.core.document_preprocessor import DocumentPreprocessor
@@ -56,7 +54,7 @@ class TOCExtractionPipeline:
     
     def __init__(self):
         """初始化Pipeline"""
-        self.config_manager = ConfigManager()
+        self.config_manager = EnhancedConfigManager()
         self.results: List[DocumentResult] = []
         self.start_time = datetime.now()
         
