@@ -304,17 +304,18 @@ class ChromaDBRetriever(BaseRetriever):
         else:
             return 'default'  # 默认集合
     
-    def delete_documents(self, ids: List[str]):
-        """
-        删除文档
-        
-        Args:
-            ids: 要删除的文档ID列表
-        """
+    def delete_documents(self, ids: List[str], collection_id: str):
+        """删除指定集合中的文档"""
         try:
-            self.collection.delete(ids=ids)
-            self.logger.info(f"✅ 删除文档成功: {len(ids)} 个文档")
-            
+            if collection_id not in self.collections:
+                raise ValueError(f"集合不存在: {collection_id}")
+
+            collection = self.collections[collection_id]
+            collection.delete(ids=ids)
+            self.logger.info(
+                f"✅ 删除集合 {collection_id} 中的文档: {len(ids)} 个文档"
+            )
+
         except Exception as e:
             self.logger.error(f"❌ 删除文档失败: {e}")
             raise
@@ -372,39 +373,30 @@ class ChromaDBRetriever(BaseRetriever):
                 'error': str(e)
             }
     
-    def clear_collection(self):
-        """清空集合"""
+    def clear_collection(self, collection_id: str):
+        """清空指定集合"""
         try:
-            # 删除现有集合
-            self.client.delete_collection(self.collection_name)
-            self.logger.info(f"🗑️ 删除集合: {self.collection_name}")
-            
-            # 重新创建集合
-            self.collection = self.client.create_collection(
-                name=self.collection_name,
-                embedding_function=self.embedding_function,
-                metadata={"description": "RAG知识库向量集合"}
+            self.client.delete_collection(collection_id)
+            self.logger.info(f"🗑️ 删除集合: {collection_id}")
+
+            collection = self.client.create_collection(
+                name=collection_id,
+                embedding_function=self.embedding_function
             )
-            self.logger.info(f"✅ 重新创建集合: {self.collection_name}")
-            
+            self.collections[collection_id] = collection
+            self.logger.info(f"✅ 重新创建集合: {collection_id}")
+
         except Exception as e:
             self.logger.error(f"❌ 清空集合失败: {e}")
             raise
     
-    def search_by_document(self, 
-                          query: str, 
-                          document_name: str, 
-                          top_k: int = 5) -> List[RetrievalResult]:
-        """
-        在指定文档中检索
-        
-        Args:
-            query: 查询文本
-            document_name: 文档名称
-            top_k: 返回结果数量
-            
-        Returns:
-            检索结果列表
-        """
+    def search_by_document(
+        self,
+        query: str,
+        document_name: str,
+        collection_id: str,
+        top_k: int = 5,
+    ) -> List[RetrievalResult]:
+        """在指定集合的文档中检索"""
         filters = {"document": document_name}
-        return self.retrieve(query, top_k, filters)
+        return self.retrieve(query, top_k, filters, [collection_id])
