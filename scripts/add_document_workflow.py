@@ -4,7 +4,6 @@ CategoryRAG文档添加自动化工作流
 一键完成新文档的处理、向量化和集成
 """
 
-import os
 import sys
 import time
 import json
@@ -18,9 +17,8 @@ from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
 
 # 添加项目根目录到Python路径
-project_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root))
-sys.path.insert(0, str(project_root / 'src'))
+project_root = Path(__file__).resolve().parents[1]
+sys.path.append(str(project_root))
 
 from src.config import EnhancedConfigManager
 from src.core.document_preprocessor import DocumentPreprocessor
@@ -54,7 +52,7 @@ class DocumentAddWorkflow:
     
     def __init__(self):
         """初始化工作流"""
-        self.config_manager = ConfigManager()
+        self.config_manager = EnhancedConfigManager()
         self.project_root = project_root
         self.raw_docs_dir = self.project_root / "data" / "raw_docs"
         self.processed_docs_dir = self.project_root / "data" / "processed_docs"
@@ -140,7 +138,6 @@ class DocumentAddWorkflow:
         logger.info(f"📄 开始处理文档: {file_path.name}")
         
         # 调用现有的文档处理器
-        sys.path.insert(0, str(self.project_root))
         from document_processor import DocumentProcessingWorkflow
 
         processor = DocumentProcessingWorkflow(
@@ -179,7 +176,6 @@ class DocumentAddWorkflow:
 
         try:
             # 调用TOC提取脚本
-            sys.path.insert(0, str(self.project_root / 'scripts'))
             from toc_extraction_pipeline import TOCExtractionPipeline
 
             toc_pipeline = TOCExtractionPipeline()
@@ -203,7 +199,6 @@ class DocumentAddWorkflow:
             collection_id = doc_name.lower().replace(' ', '_').replace('【', '_').replace('】', '_')
         
         # 调用数据库构建器
-        sys.path.insert(0, str(self.project_root))
         from collection_database_builder import CollectionDatabaseBuilder
 
         builder = CollectionDatabaseBuilder()

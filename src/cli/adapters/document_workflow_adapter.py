@@ -164,8 +164,8 @@ class DocumentWorkflowAdapter:
         """
         try:
             # 添加项目根目录到Python路径
-            project_root = Path(__file__).parent.parent.parent.parent
-            sys.path.insert(0, str(project_root))
+            project_root = Path(__file__).resolve().parents[4]
+            sys.path.append(str(project_root))
             
             # 导入真实的工作流
             from scripts.add_document_workflow import DocumentAddWorkflow

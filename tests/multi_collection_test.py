@@ -3,15 +3,15 @@
 多库智能检索系统测试脚本
 """
 
-import os
 import sys
 import logging
 from pathlib import Path
 
-# 添加src目录到Python路径
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+# 添加项目根目录到Python路径
+project_root = Path(__file__).resolve().parents[1]
+sys.path.append(str(project_root))
 
-from src import RAGSystem, ConfigManager
+from src import RAGSystem, EnhancedConfigManager
 from src.utils import setup_logging
 
 # 设置日志
@@ -23,7 +23,7 @@ class MultiCollectionTester:
     
     def __init__(self):
         """初始化测试器"""
-        self.config_manager = ConfigManager()
+        self.config_manager = EnhancedConfigManager()
         self.rag_system = RAGSystem(self.config_manager)
         
         # 测试查询集合
