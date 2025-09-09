@@ -22,15 +22,9 @@ License: MIT
 
 import logging
 from abc import ABC, abstractmethod
-from pathlib import Path
 import sys
 
-# 添加项目根目录到Python路径
-project_root = Path(__file__).parent.parent.parent.parent
-sys.path.insert(0, str(project_root))
-sys.path.insert(0, str(project_root / 'src'))
-
-from src.config.enhanced_config_manager import EnhancedConfigManager
+from ...config.enhanced_config_manager import EnhancedConfigManager
 
 class BaseCommand(ABC):
     """基础命令类"""
