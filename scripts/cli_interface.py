@@ -4,14 +4,13 @@ RAG系统命令行工具
 """
 
 import sys
-import os
 import argparse
 import json
 from pathlib import Path
 
 # 添加项目根目录到Python路径
-project_root = os.path.dirname(os.path.dirname(__file__))
-sys.path.insert(0, project_root)
+project_root = Path(__file__).resolve().parents[1]
+sys.path.append(str(project_root))
 
 from src.config.enhanced_config_manager import EnhancedConfigManager
 from src.core.unified_rag_system import UnifiedRAGSystem

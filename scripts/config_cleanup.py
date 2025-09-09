@@ -196,7 +196,8 @@ class ConfigCleaner:
         # 检查CLI系统是否仍能正常加载配置
         try:
             import sys
-            sys.path.insert(0, str(Path(__file__).parent.parent))
+            project_root = Path(__file__).resolve().parents[1]
+            sys.path.append(str(project_root))
             from src.config.enhanced_config_manager import EnhancedConfigManager
             
             config_manager = EnhancedConfigManager()

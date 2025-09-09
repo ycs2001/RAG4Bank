@@ -4,14 +4,14 @@ CategoryRAG多集合数据库构建器
 负责将文档分块按主题分类存储到对应的ChromaDB集合中
 """
 
-import os
 import sys
 import logging
 from pathlib import Path
 from typing import Dict, List, Any
 
-# 添加src目录到Python路径
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+# 添加项目根目录到Python路径
+project_root = Path(__file__).resolve().parent
+sys.path.append(str(project_root))
 
 from src.config.enhanced_config_manager import EnhancedConfigManager
 from src.retrievers import ChromaDBRetriever

@@ -2,7 +2,6 @@
 调试管理器：用于保存和管理检索调试信息
 """
 
-import os
 import json
 import hashlib
 from datetime import datetime, timedelta
@@ -15,7 +14,7 @@ from ..retrievers.base_retriever import RetrievalResult
 class DebugManager(BaseComponent):
     """调试管理器"""
     
-    def __init__(self, config_manager: ConfigManager):
+    def __init__(self, config_manager: EnhancedConfigManager):
         """
         初始化调试管理器
         

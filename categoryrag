@@ -4,16 +4,14 @@ CategoryRAG 统一命令行工具
 提供简化的文档管理和系统操作接口
 """
 
-import os
 import sys
 import argparse
 import logging
 from pathlib import Path
 
 # 添加项目根目录到Python路径
-project_root = Path(__file__).parent
-sys.path.insert(0, str(project_root))
-sys.path.insert(0, str(project_root / 'src'))
+project_root = Path(__file__).resolve().parent
+sys.path.append(str(project_root))
 
 def setup_logging(level="INFO"):
     """设置日志"""
