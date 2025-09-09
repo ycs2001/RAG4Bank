@@ -6,7 +6,6 @@
 import os
 import sys
 import logging
-from pathlib import Path
 
 # 添加src目录到Python路径
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
