@@ -4,7 +4,6 @@ RAG系统端到端自动化构建脚本
 解决数据流水线中的手动干预断点，实现一键式构建
 """
 
-import os
 import sys
 import logging
 import argparse
@@ -12,8 +11,9 @@ import time
 from pathlib import Path
 from typing import Dict, Any, Optional
 
-# 添加当前目录到Python路径
-sys.path.insert(0, os.path.dirname(__file__))
+# 添加项目根目录到Python路径
+project_root = Path(__file__).resolve().parent
+sys.path.append(str(project_root))
 
 # 导入现有模块
 from Chunk import DocumentProcessingWorkflow
@@ -150,7 +150,6 @@ class RAGSystemBuilder:
         
         # 检查BGE模型
         try:
-            sys.path.insert(0, 'src')
             from src.config import EnhancedConfigManager
             config = EnhancedConfigManager()
             model_path = config.get('embedding.model.path')
@@ -216,7 +215,6 @@ class RAGSystemBuilder:
             if success:
                 # 获取构建统计
                 try:
-                    sys.path.insert(0, 'src')
                     from src.config import EnhancedConfigManager
                     from src.retrievers import ChromaDBRetriever
 
@@ -259,11 +257,10 @@ class RAGSystemBuilder:
         
         try:
             # 简单的系统验证
-            sys.path.insert(0, 'src')
-            from src import RAGSystem, ConfigManager
-            
+            from src import RAGSystem, EnhancedConfigManager
+
             # 初始化RAG系统
-            config_manager = ConfigManager()
+            config_manager = EnhancedConfigManager()
             rag_system = RAGSystem(config_manager)
             
             # 执行健康检查
