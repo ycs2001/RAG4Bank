@@ -1,8 +1,7 @@
 """Cross-Encoder重排器实现"""
 
 import logging
-from typing import List, Dict, Any, Tuple
-import numpy as np
+from typing import List, Dict, Any
 from .base_reranker import BaseReranker
 
 try:
