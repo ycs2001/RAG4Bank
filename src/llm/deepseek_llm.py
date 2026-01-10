@@ -1,8 +1,9 @@
 """DeepSeek LLM实现"""
 
+import time
 import requests
 from typing import Dict, Any, Optional, List
-from .base_llm import BaseLLM
+from .base_llm import BaseLLM, LLMResponse
 
 class DeepSeekLLM(BaseLLM):
     """DeepSeek LLM实现"""

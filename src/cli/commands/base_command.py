@@ -45,8 +45,7 @@ class BaseCommand(ABC):
         # 初始化配置管理器
         try:
             self.config_manager = EnhancedConfigManager(
-                config_dir=args.config,
-                env=args.env
+                config_dir=args.config
             )
         except Exception as e:
             self.logger.error(f"❌ 配置初始化失败: {e}")

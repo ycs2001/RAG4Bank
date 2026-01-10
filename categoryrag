@@ -45,7 +45,6 @@ def main():
     
     # 全局选项
     parser.add_argument('--config', '-c', help='配置文件路径', default='config')
-    parser.add_argument('--env', '-e', help='环境 (dev/prod/test)', default='development')
     parser.add_argument('--verbose', '-v', action='store_true', help='详细输出')
     parser.add_argument('--quiet', '-q', action='store_true', help='静默模式')
     

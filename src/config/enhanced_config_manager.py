@@ -1,6 +1,6 @@
 """
 增强的配置管理器
-支持统一配置、环境切换、配置验证等功能
+支持统一配置、配置验证等功能
 """
 
 import os
@@ -29,16 +29,14 @@ class ConfigValidationError(Exception):
 class EnhancedConfigManager:
     """增强的配置管理器"""
     
-    def __init__(self, config_dir: str = "config", env: str = "development"):
+    def __init__(self, config_dir: str = "config"):
         """
         初始化配置管理器
-        
+
         Args:
             config_dir: 配置文件目录
-            env: 环境名称 (development, production, testing)
         """
         self.config_dir = Path(config_dir)
-        self.env = env
         self.config = {}
 
         # 尝试加载.env文件
@@ -61,48 +59,26 @@ class EnhancedConfigManager:
     def _load_config(self):
         """加载配置文件"""
         try:
-            # 1. 加载统一配置文件
+            # 加载统一配置文件
             unified_config_path = self.config_dir / "unified_config.yaml"
             if unified_config_path.exists():
                 with open(unified_config_path, 'r', encoding='utf-8') as f:
                     self.config = yaml.safe_load(f)
-                logger.info(f"✅ 加载统一配置文件: {unified_config_path}")
+                logger.info(f"✅ 加载配置文件: {unified_config_path}")
             else:
                 raise FileNotFoundError(f"未找到配置文件: {unified_config_path}")
-            
-            # 2. 加载环境特定配置
-            env_config_path = self.config_dir / f"{self.env}.yaml"
-            if env_config_path.exists():
-                with open(env_config_path, 'r', encoding='utf-8') as f:
-                    env_config = yaml.safe_load(f)
-                self.config = self._merge_configs(self.config, env_config)
-                logger.info(f"✅ 加载环境配置: {env_config_path}")
-            
-            # 3. 处理环境变量
+
+            # 处理环境变量
             self._process_env_variables()
-            
-            # 4. 验证配置
+
+            # 验证配置
             self.validate_config()
-            
-            logger.info(f"✅ 配置加载完成 (环境: {self.env})")
-            
+
+            logger.info(f"✅ 配置加载完成")
+
         except Exception as e:
             logger.error(f"❌ 配置加载失败: {e}")
             raise
-    
-    def _merge_configs(self, base_config: Dict, env_config: Dict) -> Dict:
-        """合并配置"""
-        merged = base_config.copy()
-        
-        def merge_dict(base: Dict, override: Dict):
-            for key, value in override.items():
-                if key in base and isinstance(base[key], dict) and isinstance(value, dict):
-                    merge_dict(base[key], value)
-                else:
-                    base[key] = value
-        
-        merge_dict(merged, env_config)
-        return merged
     
     def _process_env_variables(self):
         """处理环境变量"""
@@ -241,7 +217,6 @@ class EnhancedConfigManager:
         return {
             "name": self.get("system.name", "CategoryRAG"),
             "version": self.get("system.version", "2.0"),
-            "environment": self.env,
             "config_dir": str(self.config_dir),
             "log_level": self.get("system.log_level", "INFO")
         }
